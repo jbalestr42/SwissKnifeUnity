@@ -5,9 +5,20 @@ using UnityEngine;
 
 namespace Pool
 {
+    /// <summary>
+    /// This pool is used for the Monobehaviour elements to be pooled
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class PoolObject<T> : PoolBase<T> where T : MonoBehaviour
     {
+        /// <summary>
+        /// Monobehaviour element to instantiated
+        /// </summary>
         private T _baseElement;
+
+        /// <summary>
+        /// Parent of the object for the parenting
+        /// </summary>
         private Transform _parent;
 
         #region Constructor
@@ -20,11 +31,19 @@ namespace Pool
 
         #endregion
 
-        public override T GetObject()
+        /// <summary>
+        /// Instantiate a new Object with the Unity method
+        /// </summary>
+        /// <returns></returns>
+        protected override T GetObject()
         {
             return UnityEngine.Object.Instantiate(_baseElement, _parent);
         }
 
+        /// <summary>
+        /// Set the parent of the released item to pool parent
+        /// </summary>
+        /// <param name="item"></param>
         public override void PoolBehaviourOnRelease(T item) {
             item.transform.SetParent(_parent);
         }

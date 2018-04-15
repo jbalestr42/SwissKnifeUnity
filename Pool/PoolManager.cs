@@ -5,11 +5,25 @@ using UnityEngine;
 
 namespace Pool
 {
+
+    /// <summary>
+    /// Class that creates and manages all the pools
+    /// </summary>
     public class PoolManager
     {
+        /// <summary>
+        /// Array of pool
+        /// </summary>
         private PoolAbstract[] _pools;
+
+        /// <summary>
+        /// Current index for the pool
+        /// </summary>
         private int _poolsKey;
 
+        /// <summary>
+        /// Get the current pool index. Automatic increment and resize
+        /// </summary>
         private int PoolsKey {
             get {
                 if (_poolsKey >= _pools.Length)
@@ -21,11 +35,15 @@ namespace Pool
             }
         }
 
+        #region Constructor
+
         public PoolManager()
         {
             _poolsKey = 0;
             _pools = new PoolAbstract[1];
         }
+
+        #endregion
 
         #region Add Pool
 
@@ -51,6 +69,9 @@ namespace Pool
 
         #region Destroy Pool
 
+        /// <summary>
+        /// Clear the pool manager and destroy all pools
+        /// </summary>
         public void ClearPools()
         {
             Debug.LogWarning("Destroy all pools");
@@ -68,6 +89,11 @@ namespace Pool
 
             GC.Collect();
         }
+
+        /// <summary>
+        /// Clear a specific pool
+        /// </summary>
+        /// <param name="poolToDestroy">Pool to be destroyed</param>
         public void DestroyPool(PoolAbstract poolToDestroy)
         {
             if (poolToDestroy.PoolId >= _pools.Length)
