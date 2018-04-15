@@ -47,12 +47,15 @@ namespace Pool
         public override void PoolBehaviourOnRelease(T item) {
             item.transform.SetParent(_parent);
         }
-
+    
+        /// <summary>
+        /// Destroy the gameObject contained at a specific index
+        /// </summary>
+        /// <param name="index">Index of the object to be destroyed</param>
         public override void ClearElement(int index)
         {
             if (_pool[index] != null)
             {
-                Debug.Log(index + " / Destroy");
                 UnityEngine.Object.Destroy(_pool[index].gameObject);
             }
         }

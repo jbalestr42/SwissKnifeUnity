@@ -74,8 +74,6 @@ namespace Pool
         /// </summary>
         public void ClearPools()
         {
-            Debug.LogWarning("Destroy all pools");
-
             for (int i = 0; i < _pools.Length; ++i)
             {
                 if (_pools[i] != null)
@@ -85,8 +83,6 @@ namespace Pool
             }
 
             Array.Resize(ref _pools, 0);
-            Debug.Log("Size for pool manager: " + _pools.Length);
-
             GC.Collect();
         }
 
@@ -98,12 +94,8 @@ namespace Pool
         {
             if (poolToDestroy.PoolId >= _pools.Length)
             {
-                Debug.LogError(poolToDestroy.PoolId + " > " + _pools.Length);
                 return;
             }
-
-            Debug.Log("Pools size: " + _pools.Length);
-            Debug.Log("Destroy the pool at index: " + poolToDestroy.PoolId);
 
             if (_pools[poolToDestroy.PoolId] != null)
             {
@@ -114,10 +106,11 @@ namespace Pool
             }
             else
             {
-                Debug.Log("Pool already destroyed");
+                Debug.LogWarning("Pool already destroyed");
             }
         }
 
         #endregion
+
     }
 }

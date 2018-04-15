@@ -53,11 +53,9 @@ namespace Pool
         {
             if (_index == 0)
             {
-                Debug.Log("Index == 0 creating T");
                 return GetObject();
             }
 
-            Debug.Log("Returning item. New size: " + (_index - 1).ToString());
             return _pool[--_index];
         }
 
@@ -67,16 +65,13 @@ namespace Pool
         /// <param name="item">Item to be stored</param>
         public void Release(T item)
         {
-            Debug.Log(_index + " / " + _pool.Length);
             PoolBehaviourOnRelease(item);
 
             if (_index == _pool.Length)
             {
                 Array.Resize(ref _pool, _pool.Length * 2);
-                Debug.Log("New size: " + _pool.Length);
             }
 
-            Debug.Log("Saving item at " + _index);
             _pool[_index++] = item;
         }
 
@@ -85,7 +80,6 @@ namespace Pool
         /// </summary>
         public override void Clear()
         {
-            Debug.Log("Clear " + _pool.Length + " elements");
             int size = _pool.Length;
 
             if (size > _index)
@@ -98,10 +92,7 @@ namespace Pool
                 ClearElement(i);
             }
 
-            Debug.Log("Resize to 0");
             Array.Resize(ref _pool, 0);
-
-            Debug.Log("GC collect");
             GC.Collect();
         }
     }

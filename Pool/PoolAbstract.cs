@@ -38,7 +38,6 @@ namespace Pool
         protected PoolAbstract(int id)
         {
             _poolId = id;
-            Debug.Log("Pool id: " + _poolId);
         }
     }
 }

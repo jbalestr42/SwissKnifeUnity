@@ -42,7 +42,6 @@ namespace Pool
         /// <param name="index">Index of an element</param>
         public override void ClearElement(int index)
         {
-            Debug.Log(index + " / clear");
             _pool[index] = default(T);
         }
     }
