@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
-namespace Pool
+namespace SKU
 {
     /// <summary>
     /// This pool is used for the Monobehaviour elements to be pooled
@@ -23,10 +23,12 @@ namespace Pool
 
         #region Constructor
 
-        public PoolObject(int id, T baseElement, Transform parent, int baseSize = -1, int numberOfElementsPreloaded = 0) : base (id)
+        public PoolObject(int id, T baseElement, Transform parent, int baseSize) : base(id, baseSize)
         {
             _baseElement = baseElement;
             _parent = parent;
+
+            InitPool();
         }
 
         #endregion

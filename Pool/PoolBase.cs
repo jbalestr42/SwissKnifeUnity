@@ -1,31 +1,35 @@
 ﻿using UnityEngine;
 using System;
 
-namespace Pool
+namespace SKU
 {
-    public abstract class PoolBase<T> : PoolAbstract
+    public abstract class PoolBase<T> : APool
     {
         protected T[] _pool = new T[1];
 
         #region Constructor
 
-        public PoolBase(int id, int baseSize = -1, int numberOfElementsPreloaded = 0) : base(id)
+        public PoolBase(int id, int baseSize) : base(id)
         {
-            if (baseSize > 0)
+            if (baseSize > -1)
             {
                 Array.Resize(ref _pool, baseSize);
-            }
-
-            if (numberOfElementsPreloaded > 0)
-            {
-                for (int i = 0; i < numberOfElementsPreloaded; ++i)
-                {
-                    Release(GetObject());
-                }
             }
         }
 
         #endregion
+
+        /// <summary>
+        /// Initialize the pool with a defined number of item
+        /// </summary>
+        /// <param name="baseSize">Base size of the pool</param>
+        protected void InitPool()
+        {
+            for (int i = 0; i < _pool.Length; ++i)
+            {
+                Release(GetObject());
+            }
+        }
 
         /// <summary>
         /// Function to create an object of the type in the pool

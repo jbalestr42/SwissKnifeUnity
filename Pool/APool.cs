@@ -2,22 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Pool
+namespace SKU
 {
-
     /// <summary>
     /// Abstract class for the pools
     /// </summary>
-    public abstract class PoolAbstract
+    public abstract class APool
     {
-
         /// <summary>
         /// Id of the pool inside the Pool manager
         /// </summary>
         protected int _poolId;
 
         /// <summary>
-        /// Curret index for the element inside the pool
+        /// Current index for the element inside the pool
         /// </summary>
         protected int _index = 0;
 
@@ -35,7 +33,7 @@ namespace Pool
         /// Constructor
         /// </summary>
         /// <param name="id"></param>
-        protected PoolAbstract(int id)
+        protected APool(int id)
         {
             _poolId = id;
         }

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Pool
+namespace SKU
 {
 
     /// <summary>
@@ -14,7 +14,7 @@ namespace Pool
         /// <summary>
         /// Array of pool
         /// </summary>
-        private PoolAbstract[] _pools;
+        private APool[] _pools;
 
         /// <summary>
         /// Current index for the pool
@@ -40,26 +40,26 @@ namespace Pool
         public PoolManager()
         {
             _poolsKey = 0;
-            _pools = new PoolAbstract[1];
+            _pools = new APool[1];
         }
 
         #endregion
 
         #region Add Pool
 
-        public Pool<T> AddPool<T>(int baseSize = -1, int numberOfElementsPreloaded = 0) where T : new()
+        public Pool<T> AddPool<T>(int baseSize) where T : new()
         {
             int key = PoolsKey;
-            Pool<T> pool = new Pool<T>(key, baseSize, numberOfElementsPreloaded);
+            Pool<T> pool = new Pool<T>(key, baseSize);
             _pools[key] = pool;
 
             return pool;
         }
 
-        public PoolObject<T> AddPool<T>(T baseElement, Transform parent, int baseSize = -1, int numberOfElementsPreloaded = 0) where T : MonoBehaviour
+        public PoolObject<T> AddPool<T>(T baseElement, Transform parent, int baseSize) where T : MonoBehaviour
         {
             int key = PoolsKey;
-            PoolObject<T> pool = new PoolObject<T>(key, baseElement, parent, baseSize, numberOfElementsPreloaded);
+            PoolObject<T> pool = new PoolObject<T>(key, baseElement, parent, baseSize);
             _pools[key] = pool;
 
             return pool;
@@ -90,7 +90,7 @@ namespace Pool
         /// Clear a specific pool
         /// </summary>
         /// <param name="poolToDestroy">Pool to be destroyed</param>
-        public void DestroyPool(PoolAbstract poolToDestroy)
+        public void DestroyPool(APool poolToDestroy)
         {
             if (poolToDestroy.PoolId >= _pools.Length)
             {

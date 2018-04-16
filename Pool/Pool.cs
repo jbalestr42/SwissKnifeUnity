@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
-namespace Pool
+namespace SKU
 {
     /// <summary>
     /// This pool is used for all elements that can call "New()"
@@ -14,7 +14,9 @@ namespace Pool
 
         #region Constructor
 
-        public Pool(int id, int baseSize = -1, int numberOfElementsPreloaded = 0) : base(id) { }
+        public Pool(int id, int baseSize) : base(id, baseSize) {
+            InitPool();
+        }
 
         #endregion
 
