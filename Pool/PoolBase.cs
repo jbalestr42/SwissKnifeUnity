@@ -5,7 +5,7 @@ namespace SKU
 {
     public abstract class PoolBase<T> : APool
     {
-        protected T[] _pool = new T[1];
+        protected T[] _pool;
 
         /// <summary>
         /// Reset function called when an object is released inside the pool
@@ -16,12 +16,8 @@ namespace SKU
 
         public PoolBase(int id, int baseSize, Action<T> resetFuncion) : base(id)
         {
+            _pool = new T[baseSize];
             _resetObjectFunction = resetFuncion;
-
-            if (baseSize > -1)
-            {
-                Array.Resize(ref _pool, baseSize);
-            }
         }
 
         #endregion
@@ -62,12 +58,18 @@ namespace SKU
         /// <returns></returns>
         public T GetItem()
         {
+            T item;
             if (_index == 0)
             {
-                return GetObject();
+                item = GetObject();
+            } else {
+                item = _pool[--_index];
             }
 
-            return _pool[--_index];
+            //Reset the item before returning it to the asking class
+            _resetObjectFunction(item);
+
+            return item;
         }
 
         /// <summary>
@@ -77,7 +79,6 @@ namespace SKU
         public void Release(T item)
         {
             PoolBehaviourOnRelease(item);
-            _resetObjectFunction(item);
 
             if (_index == _pool.Length)
             {
