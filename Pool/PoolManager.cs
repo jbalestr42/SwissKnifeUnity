@@ -47,19 +47,19 @@ namespace SKU
 
         #region Add Pool
 
-        public Pool<T> AddPool<T>(int baseSize) where T : new()
+        public Pool<T> AddPool<T>(int baseSize, Action<T> resetFunction) where T : new()
         {
             int key = PoolsKey;
-            Pool<T> pool = new Pool<T>(key, baseSize);
+            Pool<T> pool = new Pool<T>(key, baseSize, resetFunction);
             _pools[key] = pool;
 
             return pool;
         }
 
-        public PoolObject<T> AddPool<T>(T baseElement, Transform parent, int baseSize) where T : MonoBehaviour
+        public PoolObject<T> AddPool<T>(T baseElement, Transform parent, int baseSize, Action<T> resetFunction) where T : MonoBehaviour
         {
             int key = PoolsKey;
-            PoolObject<T> pool = new PoolObject<T>(key, baseElement, parent, baseSize);
+            PoolObject<T> pool = new PoolObject<T>(key, baseElement, parent, baseSize, resetFunction);
             _pools[key] = pool;
 
             return pool;

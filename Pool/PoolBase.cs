@@ -7,10 +7,17 @@ namespace SKU
     {
         protected T[] _pool = new T[1];
 
+        /// <summary>
+        /// Reset function called when an object is released inside the pool
+        /// </summary>
+        protected Action<T> _resetObjectFunction;
+
         #region Constructor
 
-        public PoolBase(int id, int baseSize) : base(id)
+        public PoolBase(int id, int baseSize, Action<T> resetFuncion) : base(id)
         {
+            _resetObjectFunction = resetFuncion;
+
             if (baseSize > -1)
             {
                 Array.Resize(ref _pool, baseSize);
@@ -27,7 +34,7 @@ namespace SKU
         {
             for (int i = 0; i < _pool.Length; ++i)
             {
-                Release(GetObject());
+                _pool[i] = GetObject();
             }
         }
 
@@ -70,6 +77,7 @@ namespace SKU
         public void Release(T item)
         {
             PoolBehaviourOnRelease(item);
+            _resetObjectFunction(item);
 
             if (_index == _pool.Length)
             {

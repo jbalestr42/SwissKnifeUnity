@@ -14,7 +14,7 @@ namespace SKU
 
         #region Constructor
 
-        public Pool(int id, int baseSize) : base(id, baseSize) {
+        public Pool(int id, int baseSize, Action<T> resetFunction) : base(id, baseSize, resetFunction) {
             InitPool();
         }
 

@@ -23,7 +23,7 @@ namespace SKU
 
         #region Constructor
 
-        public PoolObject(int id, T baseElement, Transform parent, int baseSize) : base(id, baseSize)
+        public PoolObject(int id, T baseElement, Transform parent, int baseSize, Action<T> resetFunction) : base(id, baseSize, resetFunction)
         {
             _baseElement = baseElement;
             _parent = parent;
