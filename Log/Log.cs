@@ -21,7 +21,8 @@ namespace SKU
             Network = 1,
             Warning = 2,
             Error = 3,
-            Log = 4
+            Localization = 4,
+            Log = 99
         }
         
         /// <summary>
@@ -55,6 +56,7 @@ namespace SKU
         private static string _gameplayColor = "green";
         private static string _networkColor = "blue";
         private static string _logClassInformationColor = "grey";
+        private static string _localizationColor = "brown";
 
         private static string _standardPath;
 
@@ -82,6 +84,7 @@ namespace SKU
             _logs.Add(LogType.Warning, new LogStruct());
             _logs.Add(LogType.Error, new LogStruct());
             _logs.Add(LogType.Log, new LogStruct());
+            _logs.Add(LogType.Localization, new LogStruct());
             _hasDictionaryBeenInitialized = true;
         }
 
@@ -97,6 +100,13 @@ namespace SKU
             Init();
             AddToLogString(message, LogType.Gameplay);
             Debug.Log(string.Format("<color={0}>{1}</color>", _gameplayColor, message));
+        }
+
+        public static void Localization(string message, GameObject gO = null)
+        {
+            Init();
+            AddToLogString(message, LogType.Localization);
+            Debug.Log(string.Format("<color={0}>{1}</color>", _localizationColor, message));
         }
 
         public static void Network(string message, GameObject gO = null)
