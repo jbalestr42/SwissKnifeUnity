@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace SKU { 
@@ -9,11 +8,9 @@ namespace SKU {
         #region Variables
 
         private const string kDefaultLanguage = "en-US";
-        private const string kplayerPrefsKey = "LanguageSelected";
 
         public List<Language> _languagesToLoad;
 
-        private static LocalizationManager _instance;
         private List<ALocalize> _localizedElements;
         private Dictionary<string, Language> _languages;
         private string _currentLanguageKey = kDefaultLanguage;
@@ -22,45 +19,27 @@ namespace SKU {
 
         #endregion
 
-        #region Constructors_Getters_Setters
+        #region Methods
 
-        private void Awake()
+        public void Init()
         {
-            _instance = this;
             _localizedElements = new List<ALocalize>();
             _languages = new Dictionary<string, Language>();
 
-            if (!PlayerPrefs.HasKey(kplayerPrefsKey))
+            if (!PlayerPrefs.HasKey(PlayerPrefsKey.kplayerPrefsKey))
             {
-                PlayerPrefs.SetString(kplayerPrefsKey, kDefaultLanguage);
+                PlayerPrefs.SetString(PlayerPrefsKey.kplayerPrefsKey, kDefaultLanguage);
                 PlayerPrefs.Save();
             }
-            _currentLanguageKey = PlayerPrefs.GetString(kplayerPrefsKey);
+            _currentLanguageKey = PlayerPrefs.GetString(PlayerPrefsKey.kplayerPrefsKey);
 
             LoadLanguages();
             LoadLanguage();
         }
 
-        public static LocalizationManager Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    Log.Localization("Wait until the end of the first awake of the game for the initialization of the localization manager");
-                }
-
-                return _instance;
-            }
-        }
-
-        #endregion
-
-        #region Methods
-
         private void SetPlayerPrefs(string languageKey)
         {
-            PlayerPrefs.SetString(kplayerPrefsKey, languageKey);
+            PlayerPrefs.SetString(PlayerPrefsKey.kplayerPrefsKey, languageKey);
             PlayerPrefs.Save();
             _currentLanguageKey = languageKey;
         }
@@ -108,9 +87,20 @@ namespace SKU {
             _localizedElements.Add(item);
         }
 
-        public string Get(string key)
+        public string GetString(string key)
         {
-            return _currentLanguage.Get(key);
+            Log.Localization("GetString");
+            return _currentLanguage.GetString(key);
+        }
+
+        public Sprite GetSprite(string key)
+        {
+            return _currentLanguage.GetSprite(key);
+        }
+
+        public AudioClip GetAudioClip(string key)
+        {
+            return _currentLanguage.GetAudioClip(key);
         }
 
         #endregion

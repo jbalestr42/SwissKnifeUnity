@@ -4,18 +4,18 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace SKU { 
-    public class LocalizeText : ALocalize {
+    public class LocalizeSprite : ALocalize {
 
-        private Text _text;
+        private Image _image;
 
         private void Start()
         {
             bool gotError = false;
 
-            _text = GetComponent<Text>();
-            if (_text == null)
+            _image = GetComponent<Image>();
+            if (_image == null)
             {
-                Log.Localization("Missing text to be localized on the gameobject [" + gameObject.name + "]", gameObject);
+                Log.Localization("Missing sprite to be localized on the gameobject [" + gameObject.name + "]", gameObject);
                 gotError = true;
             }
 
@@ -35,8 +35,7 @@ namespace SKU {
 
         protected override void LoadElement()
         {
-            Log.Localization("LoadElement");
-            _text.text = GameManager.Instance.Localization.GetString(Key);
+            _image.sprite = GameManager.Instance.Localization.GetSprite(Key);
         }
 
         public override void ReloadLocalization()

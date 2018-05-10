@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+
 namespace SKU { 
     public abstract class ALocalize : MonoBehaviour {
         public string Key = string.Empty;

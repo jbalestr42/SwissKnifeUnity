@@ -4,18 +4,18 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace SKU { 
-    public class LocalizeText : ALocalize {
+    public class LocalizeAudioClip : ALocalize {
 
-        private Text _text;
+        private AudioSource _audioSource;
 
         private void Start()
         {
             bool gotError = false;
 
-            _text = GetComponent<Text>();
-            if (_text == null)
+            _audioSource = GetComponent<AudioSource>();
+            if (_audioSource == null)
             {
-                Log.Localization("Missing text to be localized on the gameobject [" + gameObject.name + "]", gameObject);
+                Log.Localization("Missing AudioClip to be localized on the gameobject [" + gameObject.name + "]", gameObject);
                 gotError = true;
             }
 
@@ -35,8 +35,7 @@ namespace SKU {
 
         protected override void LoadElement()
         {
-            Log.Localization("LoadElement");
-            _text.text = GameManager.Instance.Localization.GetString(Key);
+            _audioSource.clip = GameManager.Instance.Localization.GetAudioClip(Key);
         }
 
         public override void ReloadLocalization()

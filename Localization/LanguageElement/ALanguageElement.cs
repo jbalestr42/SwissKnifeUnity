@@ -1,9 +1,8 @@
 ﻿namespace SKU {
 
     [System.Serializable]
-    public class LanguageElement {
+    public abstract class ALanguageElement {
         public string Key;
         public string Description;
-        public string Text;
     }
 }
