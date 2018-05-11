@@ -15,12 +15,13 @@ namespace SKU {
             _image = GetComponent<Image>();
             if (_image == null)
             {
-                Log.Localization("Missing sprite to be localized on the gameobject [" + gameObject.name + "]", gameObject);
+                Log.WarningLocalization("Missing sprite to be localized on the gameobject [" + gameObject.name + "]", gameObject);
                 gotError = true;
             }
 
             if (IsKeyEmpty())
             {
+                Log.WarningLocalization("Missing key for the localization the gameobject [" + gameObject.name + "]", gameObject);
                 gotError = true;
             }
 
@@ -36,11 +37,6 @@ namespace SKU {
         protected override void LoadElement()
         {
             _image.sprite = GameManager.Instance.Localization.GetSprite(Key);
-        }
-
-        public override void ReloadLocalization()
-        {
-            LoadElement();
         }
     }
 }

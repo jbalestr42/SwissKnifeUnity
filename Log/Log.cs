@@ -102,11 +102,11 @@ namespace SKU
             Debug.Log(string.Format("<color={0}>{1}</color>", _gameplayColor, message));
         }
 
-        public static void Localization(string message, GameObject gO = null)
+        public static void WarningLocalization(string message, GameObject gO = null)
         {
             Init();
             AddToLogString(message, LogType.Localization);
-            Debug.Log(string.Format("<color={0}>{1}</color>", _localizationColor, message));
+            Debug.LogWarning(string.Format("<color={0}>{1}</color>", _localizationColor, message));
         }
 
         public static void Network(string message, GameObject gO = null)

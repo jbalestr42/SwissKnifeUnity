@@ -5,14 +5,26 @@ using UnityEngine;
 namespace SKU
 {
     // ---------------
-    //  String => Int
+    //  string => LanguageElementText
     // ---------------
     [Serializable]
-    public class StringIntDictionary : SerializableDictionary<string, int> { }
+    public class StringLETextDictionary : SerializableDictionary<string, LanguageElementText> { }
 
     // ---------------
-    //  GameObject => Float
+    //  string => LanguageElementSprite
     // ---------------
     [Serializable]
-    public class GameObjectFloatDictionary : SerializableDictionary<GameObject, float> { }
+    public class StringLESpriteDictionary : SerializableDictionary<string, LanguageElementSprite> { }
+
+    // ---------------
+    //  string => LanguageElementAudioClip
+    // ---------------
+    [Serializable]
+    public class StringLEAudioClipDictionary : SerializableDictionary<string, LanguageElementAudioClip> { }
+
+    // ---------------
+    //  string => Language
+    // ---------------
+    [Serializable]
+    public class StringLanguageDictionary : SerializableDictionary<string, Language> { }
 }

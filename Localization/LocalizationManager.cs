@@ -9,12 +9,16 @@ namespace SKU {
 
         private const string kDefaultLanguage = "en-US";
 
-        public List<Language> _languagesToLoad;
+        [SerializeField]
+        private StringLanguageDictionary Languages = StringLanguageDictionary.New<StringLanguageDictionary>();
+        private Dictionary<string, Language> _languages
+        {
+            get { return Languages.dictionary; }
+        }
 
         private List<ALocalize> _localizedElements;
-        private Dictionary<string, Language> _languages;
+
         private string _currentLanguageKey = kDefaultLanguage;
-        private string _lastLanguageKey = kDefaultLanguage;
         private Language _currentLanguage;
 
         #endregion
@@ -24,7 +28,6 @@ namespace SKU {
         public void Init()
         {
             _localizedElements = new List<ALocalize>();
-            _languages = new Dictionary<string, Language>();
 
             if (!PlayerPrefs.HasKey(PlayerPrefsKey.kplayerPrefsKey))
             {
@@ -32,46 +35,23 @@ namespace SKU {
                 PlayerPrefs.Save();
             }
             _currentLanguageKey = PlayerPrefs.GetString(PlayerPrefsKey.kplayerPrefsKey);
-
-            LoadLanguages();
-            LoadLanguage();
+            LoadLanguage(_currentLanguageKey, true);
         }
 
-        private void SetPlayerPrefs(string languageKey)
-        {
-            PlayerPrefs.SetString(PlayerPrefsKey.kplayerPrefsKey, languageKey);
-            PlayerPrefs.Save();
-            _currentLanguageKey = languageKey;
-        }
-
-        public void LoadLanguages()
-        {
-            for (int i = 0; i < _languagesToLoad.Count; ++i)
-            {
-                _languages.Add(_languagesToLoad[i].LanguageKey, _languagesToLoad[i]);
-            }
-        }
-
-        public void ChangeLanguage(string newKey)
-        {
-            SetPlayerPrefs(newKey);
-            LoadLanguage();
-        }
-
-        private void LoadLanguage(bool gameInitialization = false)
+        public void LoadLanguage(string languageKey, bool gameInitialization = false)
         {
             _currentLanguage = null;
-            _languages.TryGetValue(_currentLanguageKey, out _currentLanguage);
 
-            if (_currentLanguage == null)
+            if (!_languages.ContainsKey(_currentLanguageKey))
             {
-                Log.Localization("The language " + _currentLanguageKey + " is not present inside the localization manager.");
-                SetPlayerPrefs(_lastLanguageKey);
+                Log.WarningLocalization("The language " + _currentLanguageKey + " is not present inside the localization manager.");
                 return;
             }
 
-            _lastLanguageKey = _currentLanguageKey;
-            _currentLanguage.Load();
+            PlayerPrefs.SetString(PlayerPrefsKey.kplayerPrefsKey, languageKey);
+            PlayerPrefs.Save();
+            _currentLanguageKey = languageKey;
+            _languages.TryGetValue(_currentLanguageKey, out _currentLanguage);
 
             if (!gameInitialization)
             {
@@ -89,7 +69,6 @@ namespace SKU {
 
         public string GetString(string key)
         {
-            Log.Localization("GetString");
             return _currentLanguage.GetString(key);
         }
 

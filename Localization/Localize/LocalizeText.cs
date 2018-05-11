@@ -15,7 +15,7 @@ namespace SKU {
             _text = GetComponent<Text>();
             if (_text == null)
             {
-                Log.Localization("Missing text to be localized on the gameobject [" + gameObject.name + "]", gameObject);
+                Log.WarningLocalization("Missing text to be localized on the gameobject [" + gameObject.name + "]", gameObject);
                 gotError = true;
             }
 
@@ -35,13 +35,7 @@ namespace SKU {
 
         protected override void LoadElement()
         {
-            Log.Localization("LoadElement");
             _text.text = GameManager.Instance.Localization.GetString(Key);
-        }
-
-        public override void ReloadLocalization()
-        {
-            LoadElement();
         }
     }
 }

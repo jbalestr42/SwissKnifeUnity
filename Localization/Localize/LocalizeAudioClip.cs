@@ -15,7 +15,7 @@ namespace SKU {
             _audioSource = GetComponent<AudioSource>();
             if (_audioSource == null)
             {
-                Log.Localization("Missing AudioClip to be localized on the gameobject [" + gameObject.name + "]", gameObject);
+                Log.WarningLocalization("Missing AudioClip to be localized on the gameobject [" + gameObject.name + "]", gameObject);
                 gotError = true;
             }
 
@@ -36,11 +36,6 @@ namespace SKU {
         protected override void LoadElement()
         {
             _audioSource.clip = GameManager.Instance.Localization.GetAudioClip(Key);
-        }
-
-        public override void ReloadLocalization()
-        {
-            LoadElement();
         }
     }
 }

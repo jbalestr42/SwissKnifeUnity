@@ -6,61 +6,68 @@ namespace SKU {
     [CreateAssetMenu(fileName = "Language", menuName = "SKU/DefaultLanguage")]
     public class Language : ScriptableObject {
         public string LanguageKey;
-        public List<LanguageElementText> Texts;
-        public List<LanguageElementSprite> Sprites;
-        public List<LanguageElementAudioClip> Sounds;
 
-
-        private Dictionary<string, string> _texts;
-        private Dictionary<string, Sprite> _sprites;
-        private Dictionary<string, AudioClip> _audioClips;
-
-        public void Load()
+        [SerializeField]
+        private StringLETextDictionary Texts = StringLETextDictionary.New<StringLETextDictionary>();
+        private Dictionary<string, LanguageElementText> _texts
         {
-            _texts = new Dictionary<string, string>();
-            _sprites = new Dictionary<string, Sprite>();
-            _audioClips = new Dictionary<string, AudioClip>();
+            get { return Texts.dictionary; }
+        }
 
-            for (int i = 0; i < Texts.Count; ++i)
-            {
-                _texts.Add(Texts[i].Key, Texts[i].Get());
-            }
+        [SerializeField]
+        private StringLESpriteDictionary Sprites = StringLESpriteDictionary.New<StringLESpriteDictionary>();
+        private Dictionary<string, LanguageElementSprite> _sprites
+        {
+            get { return Sprites.dictionary; }
+        }
 
-            for (int i = 0; i < Sprites.Count; ++i)
-            {
-                _sprites.Add(Sprites[i].Key, Sprites[i].Get());
-            }
-
-            for (int i = 0; i < Sounds.Count; ++i)
-            {
-                _audioClips.Add(Sounds[i].Key, Sounds[i].Get());
-            }
+        [SerializeField]
+        private StringLEAudioClipDictionary AudioClips = StringLEAudioClipDictionary.New<StringLEAudioClipDictionary>();
+        private Dictionary<string, LanguageElementAudioClip> _audioClips
+        {
+            get { return AudioClips.dictionary; }
         }
 
         public string GetString(string key)
         {
-            string value;
+            LanguageElementText value;
+
+            if (!_texts.ContainsKey(key))
+            {
+                Log.WarningLocalization(LanguageKey + " | Missing STRING key: " + key);
+                return key;
+            }
+
             _texts.TryGetValue(key, out value);
-
-            Log.Localization("Getstring from language: " + key + " / " + value);
-
-            return value;
+            return value.Get();
         }
 
         public Sprite GetSprite(string key)
         {
-            Sprite value;
-            _sprites.TryGetValue(key, out value);
+            LanguageElementSprite value;
 
-            return value;
+            if (!_sprites.ContainsKey(key))
+            {
+                Log.WarningLocalization(LanguageKey + " | Missing SPRITE key: " + key);
+                return null;
+            }
+
+            _sprites.TryGetValue(key, out value);
+            return value.Get();
         }
 
         public AudioClip GetAudioClip(string key)
         {
-            AudioClip value;
-            _audioClips.TryGetValue(key, out value);
+            LanguageElementAudioClip value;
 
-            return value;
+            if (!_audioClips.ContainsKey(key))
+            {
+                Log.WarningLocalization(LanguageKey + " | Missing AUDIOCLIP key: " + key);
+                return null;
+            }
+
+            _audioClips.TryGetValue(key, out value);
+            return value.Get();
         }
     }
 }

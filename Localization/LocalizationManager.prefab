@@ -51,6 +51,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 954f52f014dd0d14ca07ef53f5463eb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _languagesToLoad:
-  - {fileID: 11400000, guid: bdddb0e53ad61db428ed66a015d972e4, type: 2}
-  - {fileID: 11400000, guid: 5afea971af4765342ad7848f81719b1c, type: 2}
+  Languages:
+    keys:
+    - en-US
+    - fr-FR
+    values:
+    - {fileID: 11400000, guid: 74ccde9f6dc49fd49bf46abd5dd08f58, type: 2}
+    - {fileID: 11400000, guid: 1426449da31a4d14ba09ed5e18380b38, type: 2}
