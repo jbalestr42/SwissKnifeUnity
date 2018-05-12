@@ -16,7 +16,7 @@ namespace SKU {
             get { return Languages.dictionary; }
         }
 
-        private List<ALocalize> _localizedElements;
+        private List<ALocalizeBase> _localizedElements;
 
         private string _currentLanguageKey = string.Empty;
         private Language _currentLanguage;
@@ -27,7 +27,7 @@ namespace SKU {
 
         public void Init()
         {
-            _localizedElements = new List<ALocalize>();
+            _localizedElements = new List<ALocalizeBase>();
 
             if (!PlayerPrefs.HasKey(PlayerPrefsKey.kplayerPrefsKey))
             {
@@ -46,18 +46,18 @@ namespace SKU {
             }
 
             _currentLanguage = null;
-            _currentLanguageKey = languageKey;
 
-            if (!_languages.ContainsKey(_currentLanguageKey))
+            _languages.TryGetValue(languageKey, out _currentLanguage);
+
+            if (_currentLanguage == null)
             {
-                Log.WarningLocalization("The language " + _currentLanguageKey + " is not present inside the localization manager.");
+                Log.WarningLocalization("The language [" + languageKey + "] is not present inside the localization manager.");
                 return;
             }
 
             PlayerPrefs.SetString(PlayerPrefsKey.kplayerPrefsKey, languageKey);
             PlayerPrefs.Save();
             _currentLanguageKey = languageKey;
-            _languages.TryGetValue(_currentLanguageKey, out _currentLanguage);
 
             if (!_currentLanguage.DeserializeTextFile())
             {
@@ -73,7 +73,7 @@ namespace SKU {
             }
         }
 
-        public void AddLocalizedElement(ALocalize item)
+        public void AddLocalizedElement(ALocalizeBase item)
         {
             _localizedElements.Add(item);
         }

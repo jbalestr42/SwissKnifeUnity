@@ -4,21 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace SKU { 
-    public class LocalizeAudioClip : ALocalize {
-
-        private AudioSource _audioSource;
-
-        private void Start()
-        {
-            _audioSource = GetComponent<AudioSource>();
-            InitializeElement();
-        }
+    public class LocalizeAudioClip : ALocalize<AudioSource> {
 
         protected override void LoadElement()
         {
-            if (_audioSource != null)
+            if (_localizationContainer != null)
             {
-                _audioSource.clip = GameManager.Instance.Localization.GetAudioClip(Key);
+                _localizationContainer.clip = GameManager.Instance.Localization.GetAudioClip(Key);
             }
             else
             {

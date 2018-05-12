@@ -61,13 +61,14 @@ namespace SKU {
         {
             string value;
 
-            if (!_texts.ContainsKey(key))
+            _texts.TryGetValue(key, out value);
+
+            if (value == null)
             {
                 Log.WarningLocalization(LanguageKey + " | Missing STRING key: " + key);
-                return key;
+                return null;
             }
-
-            _texts.TryGetValue(key, out value);
+            
             return value;
         }
 
@@ -75,13 +76,14 @@ namespace SKU {
         {
             LanguageElementSprite value;
 
-            if (!_sprites.ContainsKey(key))
+            _sprites.TryGetValue(key, out value);
+
+            if (value == null)
             {
                 Log.WarningLocalization(LanguageKey + " | Missing SPRITE key: " + key);
                 return null;
             }
 
-            _sprites.TryGetValue(key, out value);
             return value.Get();
         }
 
@@ -89,13 +91,14 @@ namespace SKU {
         {
             LanguageElementAudioClip value;
 
-            if (!_audioClips.ContainsKey(key))
+            _audioClips.TryGetValue(key, out value);
+
+            if (value == null)
             {
                 Log.WarningLocalization(LanguageKey + " | Missing AUDIOCLIP key: " + key);
                 return null;
             }
 
-            _audioClips.TryGetValue(key, out value);
             return value.Get();
         }
     }

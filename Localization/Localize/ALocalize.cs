@@ -1,9 +1,21 @@
 ﻿using UnityEngine;
 
 namespace SKU { 
-    public abstract class ALocalize : MonoBehaviour {
-
+    public abstract class ALocalizeBase : MonoBehaviour {
         public string Key = string.Empty;
+
+        public abstract void ReloadLocalization();
+    }
+
+    public abstract class ALocalize<T> : ALocalizeBase {
+
+        protected T _localizationContainer;
+
+        protected void Start()
+        {
+            _localizationContainer = GetComponent<T>();
+            InitializeElement();
+        }
 
         protected abstract void LoadElement();
 
@@ -30,7 +42,7 @@ namespace SKU {
             return false;
         }
 
-        public void ReloadLocalization()
+        public override void ReloadLocalization()
         {
             LoadElement();
         }

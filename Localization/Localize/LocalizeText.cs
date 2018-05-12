@@ -4,21 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace SKU { 
-    public class LocalizeText : ALocalize {
-
-        private Text _text;
-
-        private void Start()
-        {
-            _text = GetComponent<Text>();
-            InitializeElement();
-        }
+    public class LocalizeText : ALocalize<Text> {
 
         protected override void LoadElement()
         {
-            if (_text != null)
+            if (_localizationContainer != null)
             {
-                _text.text = GameManager.Instance.Localization.GetString(Key);
+                _localizationContainer.text = GameManager.Instance.Localization.GetString(Key);
             }
             else
             {

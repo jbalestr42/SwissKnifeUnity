@@ -4,20 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace SKU { 
-    public class LocalizeSprite : ALocalize {
-
-        private Image _image;
-
-        private void Start()
-        {
-            _image = GetComponent<Image>();
-            InitializeElement();
-        }
+    public class LocalizeSprite : ALocalize<Image> {
 
         protected override void LoadElement()
         {
-            if (_image != null) { 
-                _image.sprite = GameManager.Instance.Localization.GetSprite(Key);
+            if (_localizationContainer != null)
+            {
+                _localizationContainer.sprite = GameManager.Instance.Localization.GetSprite(Key);
             } else
             {
                 Log.WarningLocalization("Missing SPRITE to be localized on the gameobject [" + gameObject.name + "]", gameObject);
