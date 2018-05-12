@@ -1,19 +1,6 @@
 namespace SKU
 {
     // ---------------
-    //  String => LanguageElementText
-    // ---------------
-    [UnityEditor.CustomPropertyDrawer(typeof(StringLETextDictionary))]
-    public class StringLEText : SerializableDictionaryDrawer<string, LanguageElementText>
-    {
-        protected override SerializableKeyValueTemplate<string, LanguageElementText> GetTemplate()
-        {
-            return GetGenericTemplate<SerializableStringLETextTemplate>();
-        }
-    }
-    internal class SerializableStringLETextTemplate : SerializableKeyValueTemplate<string, LanguageElementText> { }
-
-    // ---------------
     //  String => LanguageElementSprite
     // ---------------
     [UnityEditor.CustomPropertyDrawer(typeof(StringLESpriteDictionary))]

@@ -55,6 +55,8 @@ MonoBehaviour:
     keys:
     - en-US
     - fr-FR
+    - ru-RU
     values:
     - {fileID: 11400000, guid: 74ccde9f6dc49fd49bf46abd5dd08f58, type: 2}
     - {fileID: 11400000, guid: 1426449da31a4d14ba09ed5e18380b38, type: 2}
+    - {fileID: 11400000, guid: c1b42c51b10296040b49d6400998eb14, type: 2}

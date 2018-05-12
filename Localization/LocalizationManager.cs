@@ -18,7 +18,7 @@ namespace SKU {
 
         private List<ALocalize> _localizedElements;
 
-        private string _currentLanguageKey = kDefaultLanguage;
+        private string _currentLanguageKey = string.Empty;
         private Language _currentLanguage;
 
         #endregion
@@ -34,13 +34,19 @@ namespace SKU {
                 PlayerPrefs.SetString(PlayerPrefsKey.kplayerPrefsKey, kDefaultLanguage);
                 PlayerPrefs.Save();
             }
-            _currentLanguageKey = PlayerPrefs.GetString(PlayerPrefsKey.kplayerPrefsKey);
-            LoadLanguage(_currentLanguageKey, true);
+
+            LoadLanguage(PlayerPrefs.GetString(PlayerPrefsKey.kplayerPrefsKey), true);
         }
 
         public void LoadLanguage(string languageKey, bool gameInitialization = false)
         {
+            if (languageKey == _currentLanguageKey)
+            {
+                return;
+            }
+
             _currentLanguage = null;
+            _currentLanguageKey = languageKey;
 
             if (!_languages.ContainsKey(_currentLanguageKey))
             {
@@ -53,6 +59,11 @@ namespace SKU {
             _currentLanguageKey = languageKey;
             _languages.TryGetValue(_currentLanguageKey, out _currentLanguage);
 
+            if (!_currentLanguage.DeserializeTextFile())
+            {
+                return;
+            }
+
             if (!gameInitialization)
             {
                 for(int i = 0; i < _localizedElements.Count; ++i)
@@ -62,7 +73,7 @@ namespace SKU {
             }
         }
 
-        public void AddLocalizedText(ALocalize item)
+        public void AddLocalizedElement(ALocalize item)
         {
             _localizedElements.Add(item);
         }

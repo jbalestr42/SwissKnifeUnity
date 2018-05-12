@@ -10,33 +10,18 @@ namespace SKU {
 
         private void Start()
         {
-            bool gotError = false;
-
             _image = GetComponent<Image>();
-            if (_image == null)
-            {
-                Log.WarningLocalization("Missing sprite to be localized on the gameobject [" + gameObject.name + "]", gameObject);
-                gotError = true;
-            }
-
-            if (IsKeyEmpty())
-            {
-                Log.WarningLocalization("Missing key for the localization the gameobject [" + gameObject.name + "]", gameObject);
-                gotError = true;
-            }
-
-            if (gotError)
-            {
-                return;
-            }
-
-            GameManager.Instance.Localization.AddLocalizedText(this);
-            LoadElement();
+            InitializeElement();
         }
 
         protected override void LoadElement()
         {
-            _image.sprite = GameManager.Instance.Localization.GetSprite(Key);
+            if (_image != null) { 
+                _image.sprite = GameManager.Instance.Localization.GetSprite(Key);
+            } else
+            {
+                Log.WarningLocalization("Missing SPRITE to be localized on the gameobject [" + gameObject.name + "]", gameObject);
+            }
         }
     }
 }

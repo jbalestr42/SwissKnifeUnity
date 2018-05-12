@@ -10,32 +10,20 @@ namespace SKU {
 
         private void Start()
         {
-            bool gotError = false;
-
             _text = GetComponent<Text>();
-            if (_text == null)
-            {
-                Log.WarningLocalization("Missing text to be localized on the gameobject [" + gameObject.name + "]", gameObject);
-                gotError = true;
-            }
-
-            if (IsKeyEmpty())
-            {
-                gotError = true;
-            }
-
-            if (gotError)
-            {
-                return;
-            }
-
-            GameManager.Instance.Localization.AddLocalizedText(this);
-            LoadElement();
+            InitializeElement();
         }
 
         protected override void LoadElement()
         {
-            _text.text = GameManager.Instance.Localization.GetString(Key);
+            if (_text != null)
+            {
+                _text.text = GameManager.Instance.Localization.GetString(Key);
+            }
+            else
+            {
+                Log.WarningLocalization("Missing TEXT to be localized on the gameobject [" + gameObject.name + "]", gameObject);
+            }
         }
     }
 }

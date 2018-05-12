@@ -5,12 +5,6 @@ using UnityEngine;
 namespace SKU
 {
     // ---------------
-    //  string => LanguageElementText
-    // ---------------
-    [Serializable]
-    public class StringLETextDictionary : SerializableDictionary<string, LanguageElementText> { }
-
-    // ---------------
     //  string => LanguageElementSprite
     // ---------------
     [Serializable]

@@ -10,32 +10,20 @@ namespace SKU {
 
         private void Start()
         {
-            bool gotError = false;
-
             _audioSource = GetComponent<AudioSource>();
-            if (_audioSource == null)
-            {
-                Log.WarningLocalization("Missing AudioClip to be localized on the gameobject [" + gameObject.name + "]", gameObject);
-                gotError = true;
-            }
-
-            if (IsKeyEmpty())
-            {
-                gotError = true;
-            }
-
-            if (gotError)
-            {
-                return;
-            }
-
-            GameManager.Instance.Localization.AddLocalizedText(this);
-            LoadElement();
+            InitializeElement();
         }
 
         protected override void LoadElement()
         {
-            _audioSource.clip = GameManager.Instance.Localization.GetAudioClip(Key);
+            if (_audioSource != null)
+            {
+                _audioSource.clip = GameManager.Instance.Localization.GetAudioClip(Key);
+            }
+            else
+            {
+                Log.WarningLocalization("Missing AUDIOCLIP to be localized on the gameobject [" + gameObject.name + "]", gameObject);
+            }
         }
     }
 }
