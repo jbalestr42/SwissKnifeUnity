@@ -6,7 +6,7 @@ using UnityEngine.UI;
 namespace SKU { 
     public class LocalizeText : ALocalize<Text> {
 
-        protected override void LoadElement()
+        public override void LoadLocalization()
         {
             if (_localizationContainer != null)
             {

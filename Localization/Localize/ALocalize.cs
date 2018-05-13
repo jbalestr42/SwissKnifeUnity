@@ -4,7 +4,26 @@ namespace SKU {
     public abstract class ALocalizeBase : MonoBehaviour {
         public string Key = string.Empty;
 
-        public abstract void ReloadLocalization();
+        public abstract void LoadLocalization();
+
+        protected void InitializeElement()
+        {
+            GameManager.Instance.Localization.AddLocalizedElement(this);
+
+            if (IsKeyEmpty())
+            {
+                Log.WarningLocalization("Missing key for the localization the gameobject [" + gameObject.name + "]", gameObject);
+            }
+            else
+            {
+                LoadLocalization();
+            }
+        }
+
+        private bool IsKeyEmpty()
+        {
+            return string.IsNullOrEmpty(Key);
+        }
     }
 
     public abstract class ALocalize<T> : ALocalizeBase {
@@ -15,36 +34,6 @@ namespace SKU {
         {
             _localizationContainer = GetComponent<T>();
             InitializeElement();
-        }
-
-        protected abstract void LoadElement();
-
-        protected void InitializeElement()
-        {
-            GameManager.Instance.Localization.AddLocalizedElement(this);
-
-            if (IsKeyEmpty())
-            {
-                Log.WarningLocalization("Missing key for the localization the gameobject [" + gameObject.name + "]", gameObject);
-            } else
-            {
-                LoadElement();
-            }
-        }
-
-        private bool IsKeyEmpty()
-        {
-            if (string.IsNullOrEmpty(Key))
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        public override void ReloadLocalization()
-        {
-            LoadElement();
         }
     }
 }

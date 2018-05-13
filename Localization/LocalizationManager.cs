@@ -68,7 +68,7 @@ namespace SKU {
             {
                 for(int i = 0; i < _localizedElements.Count; ++i)
                 {
-                    _localizedElements[i].ReloadLocalization();
+                    _localizedElements[i].LoadLocalization();
                 }
             }
         }

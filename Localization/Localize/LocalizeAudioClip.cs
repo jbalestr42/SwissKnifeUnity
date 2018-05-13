@@ -6,7 +6,7 @@ using UnityEngine.UI;
 namespace SKU { 
     public class LocalizeAudioClip : ALocalize<AudioSource> {
 
-        protected override void LoadElement()
+        public override void LoadLocalization()
         {
             if (_localizationContainer != null)
             {

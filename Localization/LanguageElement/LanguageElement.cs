@@ -5,7 +5,7 @@ namespace SKU {
     #region Abstract class
 
     [System.Serializable]
-    public abstract class ALanguageElement<T> {
+    public class LanguageElement<T> {
         public string Description;
 
         [SerializeField]
@@ -22,10 +22,10 @@ namespace SKU {
     #region Inherits Membres
 
     [System.Serializable]
-    public class LanguageElementSprite : ALanguageElement<Sprite> { }
+    public class LanguageElementSprite : LanguageElement<Sprite> { }
 
     [System.Serializable]
-    public class LanguageElementAudioClip : ALanguageElement<AudioClip> { }
+    public class LanguageElementAudioClip : LanguageElement<AudioClip> { }
 
     #endregion
 }

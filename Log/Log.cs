@@ -182,7 +182,7 @@ namespace SKU
 
         private static void SaveLog(LogType logType)
         {
-            string path = string.Format("{0}/", _standardPath);
+            string path = string.Format("{0}/{1}_", _standardPath, DateTime.Now.ToString("MM_dd_HH_mm_ss"));
 
             switch (logType)
             {
@@ -203,7 +203,7 @@ namespace SKU
                     break;
 
                 case LogType.Log:
-                    path = string.Format("{0}Info", path);
+                    path = string.Format("{0}_Info", path);
                     break;
 
                 default:
@@ -216,12 +216,6 @@ namespace SKU
         private static void WriteInFile(string path, LogType logType)
         {
             string finalPath = string.Format("{0}.log",path);
-            int currentIndex = 0;
-
-            while(File.Exists(finalPath))
-            {
-                finalPath = string.Format("{0}{1}.log", path, currentIndex++);
-            }
 
             StreamWriter sr = File.CreateText(finalPath);
             LogStruct log;
