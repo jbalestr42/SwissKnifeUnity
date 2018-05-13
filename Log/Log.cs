@@ -21,7 +21,8 @@ namespace SKU
             Network = 1,
             Warning = 2,
             Error = 3,
-            Log = 4
+            Localization = 4,
+            Log = 99
         }
         
         /// <summary>
@@ -55,6 +56,7 @@ namespace SKU
         private static string _gameplayColor = "green";
         private static string _networkColor = "blue";
         private static string _logClassInformationColor = "grey";
+        private static string _localizationColor = "brown";
 
         private static string _standardPath;
 
@@ -82,6 +84,7 @@ namespace SKU
             _logs.Add(LogType.Warning, new LogStruct());
             _logs.Add(LogType.Error, new LogStruct());
             _logs.Add(LogType.Log, new LogStruct());
+            _logs.Add(LogType.Localization, new LogStruct());
             _hasDictionaryBeenInitialized = true;
         }
 
@@ -97,6 +100,13 @@ namespace SKU
             Init();
             AddToLogString(message, LogType.Gameplay);
             Debug.Log(string.Format("<color={0}>{1}</color>", _gameplayColor, message));
+        }
+
+        public static void WarningLocalization(string message, GameObject gO = null)
+        {
+            Init();
+            AddToLogString(message, LogType.Localization);
+            Debug.LogWarning(string.Format("<color={0}>{1}</color>", _localizationColor, message));
         }
 
         public static void Network(string message, GameObject gO = null)
@@ -172,7 +182,7 @@ namespace SKU
 
         private static void SaveLog(LogType logType)
         {
-            string path = string.Format("{0}/", _standardPath);
+            string path = string.Format("{0}/{1}_", _standardPath, DateTime.Now.ToString("MM_dd_HH_mm_ss"));
 
             switch (logType)
             {
@@ -193,7 +203,7 @@ namespace SKU
                     break;
 
                 case LogType.Log:
-                    path = string.Format("{0}Info", path);
+                    path = string.Format("{0}_Info", path);
                     break;
 
                 default:
@@ -206,12 +216,6 @@ namespace SKU
         private static void WriteInFile(string path, LogType logType)
         {
             string finalPath = string.Format("{0}.log",path);
-            int currentIndex = 0;
-
-            while(File.Exists(finalPath))
-            {
-                finalPath = string.Format("{0}{1}.log", path, currentIndex++);
-            }
 
             StreamWriter sr = File.CreateText(finalPath);
             LogStruct log;

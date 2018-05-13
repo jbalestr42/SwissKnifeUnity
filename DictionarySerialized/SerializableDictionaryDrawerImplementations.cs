@@ -1,33 +1,41 @@
-using UnityEngine;
-using UnityEngine.UI;
- 
-using UnityEditor;
-
 namespace SKU
 {
     // ---------------
-    //  String => Int
+    //  String => LanguageElementSprite
     // ---------------
-    [UnityEditor.CustomPropertyDrawer(typeof(StringIntDictionary))]
-    public class StringIntDictionaryDrawer : SerializableDictionaryDrawer<string, int>
+    [UnityEditor.CustomPropertyDrawer(typeof(StringLESpriteDictionary))]
+    public class StringLESprite : SerializableDictionaryDrawer<string, LanguageElementSprite>
     {
-        protected override SerializableKeyValueTemplate<string, int> GetTemplate()
+        protected override SerializableKeyValueTemplate<string, LanguageElementSprite> GetTemplate()
         {
-            return GetGenericTemplate<SerializableStringIntTemplate>();
+            return GetGenericTemplate<SerializableStringLESpriteTemplate>();
         }
     }
-    internal class SerializableStringIntTemplate : SerializableKeyValueTemplate<string, int> { }
+    internal class SerializableStringLESpriteTemplate : SerializableKeyValueTemplate<string, LanguageElementSprite> { }
 
     // ---------------
-    //  GameObject => Float
+    //  String => LanguageElementAudioSource
     // ---------------
-    [UnityEditor.CustomPropertyDrawer(typeof(GameObjectFloatDictionary))]
-    public class GameObjectFloatDictionaryDrawer : SerializableDictionaryDrawer<GameObject, float>
+    [UnityEditor.CustomPropertyDrawer(typeof(StringLEAudioClipDictionary))]
+    public class StringLEAudioClip : SerializableDictionaryDrawer<string, LanguageElementAudioClip>
     {
-        protected override SerializableKeyValueTemplate<GameObject, float> GetTemplate()
+        protected override SerializableKeyValueTemplate<string, LanguageElementAudioClip> GetTemplate()
         {
-            return GetGenericTemplate<SerializableGameObjectFloatTemplate>();
+            return GetGenericTemplate<SerializableStringLEAudioClipTemplate>();
         }
     }
-    internal class SerializableGameObjectFloatTemplate : SerializableKeyValueTemplate<GameObject, float> { }
+    internal class SerializableStringLEAudioClipTemplate : SerializableKeyValueTemplate<string, LanguageElementAudioClip> { }
+
+    // ---------------
+    //  String => Language
+    // ---------------
+    [UnityEditor.CustomPropertyDrawer(typeof(StringLanguageDictionary))]
+    public class StringLanguage : SerializableDictionaryDrawer<string, Language>
+    {
+        protected override SerializableKeyValueTemplate<string, Language> GetTemplate()
+        {
+            return GetGenericTemplate<SerializableStringLanguageTemplate>();
+        }
+    }
+    internal class SerializableStringLanguageTemplate : SerializableKeyValueTemplate<string, Language> { }
 }
