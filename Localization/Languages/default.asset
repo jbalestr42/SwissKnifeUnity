@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Name: default
   m_EditorClassIdentifier: 
   LanguageKey: default
-  Texts:
-    keys: []
-    values: []
+  TextsSourceFile: {fileID: 4900000, guid: bc25573b9c30dea40a75ad2e2b2eb723, type: 3}
   Sprites:
     keys: []
     values: []
