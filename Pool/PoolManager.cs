@@ -41,15 +41,7 @@ namespace SKU
             get { return GameManager.Instance.Get(typeof(PoolManager)) as PoolManager; }
         }
 
-        #region Override
-
-        public override void Init()
-        {
-            _poolsKey = 0;
-            _pools = new APool[1];
-        }
-
-        #endregion
+        #region Methods
 
         #region Add Pool
 
@@ -118,5 +110,12 @@ namespace SKU
 
         #endregion
 
+        public override void Init()
+        {
+            _poolsKey = 0;
+            _pools = new APool[1];
+        }
+
+        #endregion
     }
 }

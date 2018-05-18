@@ -31,19 +31,6 @@ namespace SKU {
 
         #region Methods
 
-        public override void Init()
-        {
-            _localizedElements = new List<ALocalizeBase>();
-
-            if (!PlayerPrefs.HasKey(PlayerPrefsKey.kplayerPrefsKey))
-            {
-                PlayerPrefs.SetString(PlayerPrefsKey.kplayerPrefsKey, kDefaultLanguage);
-                PlayerPrefs.Save();
-            }
-
-            LoadLanguage(PlayerPrefs.GetString(PlayerPrefsKey.kplayerPrefsKey), true);
-        }
-
         public void LoadLanguage(string languageKey, bool gameInitialization = false)
         {
             if (languageKey == _currentLanguageKey)
@@ -97,6 +84,19 @@ namespace SKU {
         public AudioClip GetAudioClip(string key)
         {
             return _currentLanguage.GetAudioClip(key);
+        }
+
+        public override void Init()
+        {
+            _localizedElements = new List<ALocalizeBase>();
+
+            if (!PlayerPrefs.HasKey(PlayerPrefsKey.kplayerPrefsKey))
+            {
+                PlayerPrefs.SetString(PlayerPrefsKey.kplayerPrefsKey, kDefaultLanguage);
+                PlayerPrefs.Save();
+            }
+
+            LoadLanguage(PlayerPrefs.GetString(PlayerPrefsKey.kplayerPrefsKey), true);
         }
 
         #endregion
