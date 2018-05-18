@@ -10,7 +10,7 @@ namespace SKU {
         {
             if (_localizationContainer != null)
             {
-                _localizationContainer.text = GameManager.Instance.Localization.GetString(Key);
+                _localizationContainer.text = LocalizationManager.Instance.GetString(Key);
             }
             else
             {

@@ -8,7 +8,7 @@ namespace SKU {
 
         protected void InitializeElement()
         {
-            GameManager.Instance.Localization.AddLocalizedElement(this);
+            LocalizationManager.Instance.AddLocalizedElement(this);
 
             if (IsKeyEmpty())
             {

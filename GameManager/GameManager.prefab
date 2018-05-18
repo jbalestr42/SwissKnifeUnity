@@ -9,30 +9,30 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1737708707252610}
+  m_RootGameObject: {fileID: 1557521219500702}
   m_IsPrefabParent: 1
---- !u!1 &1737708707252610
+--- !u!1 &1557521219500702
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4233367043171352}
-  - component: {fileID: 114356140989772830}
+  - component: {fileID: 4244353665651836}
+  - component: {fileID: 114009724372344890}
   m_Layer: 0
-  m_Name: LocalizationManager
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4233367043171352
+--- !u!4 &4244353665651836
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1737708707252610}
+  m_GameObject: {fileID: 1557521219500702}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -40,23 +40,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114356140989772830
+--- !u!114 &114009724372344890
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1737708707252610}
+  m_GameObject: {fileID: 1557521219500702}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 954f52f014dd0d14ca07ef53f5463eb1, type: 3}
+  m_Script: {fileID: 11500000, guid: dc8bf4f5fe4a2f0459b96bb86b10ce50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Languages:
-    keys:
-    - en-US
-    - fr-FR
-    - ru-RU
-    values:
-    - {fileID: 11400000, guid: 74ccde9f6dc49fd49bf46abd5dd08f58, type: 2}
-    - {fileID: 11400000, guid: 1426449da31a4d14ba09ed5e18380b38, type: 2}
-    - {fileID: 11400000, guid: c1b42c51b10296040b49d6400998eb14, type: 2}
+  ManagersList:
+  - {fileID: 11400000, guid: 4f14f7190372d4d4bb4df479e88d029f, type: 2}
+  - {fileID: 11400000, guid: 6b1f2ab92ac0ae04693d5b028a76bd0a, type: 2}

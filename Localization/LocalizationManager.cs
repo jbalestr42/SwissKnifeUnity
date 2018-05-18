@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace SKU { 
+namespace SKU {
 
-    public class LocalizationManager : MonoBehaviour{
+    [CreateAssetMenu(fileName = "LocalizationsManager", menuName = "SKU/Managers/Localizations Manager")]
+    public class LocalizationManager : AManagers{
 
         #region Variables
 
@@ -21,11 +22,16 @@ namespace SKU {
         private string _currentLanguageKey = string.Empty;
         private Language _currentLanguage;
 
+        public static LocalizationManager Instance
+        {
+            get { return GameManager.Instance.Get(typeof(LocalizationManager)) as LocalizationManager; }
+        }
+
         #endregion
 
         #region Methods
 
-        public void Init()
+        public override void Init()
         {
             _localizedElements = new List<ALocalizeBase>();
 

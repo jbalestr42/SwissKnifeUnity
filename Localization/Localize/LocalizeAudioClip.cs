@@ -10,7 +10,7 @@ namespace SKU {
         {
             if (_localizationContainer != null)
             {
-                _localizationContainer.clip = GameManager.Instance.Localization.GetAudioClip(Key);
+                _localizationContainer.clip = LocalizationManager.Instance.GetAudioClip(Key);
             }
             else
             {

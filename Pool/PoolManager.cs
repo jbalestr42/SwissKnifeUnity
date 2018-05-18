@@ -9,7 +9,8 @@ namespace SKU
     /// <summary>
     /// Class that creates and manages all the pools
     /// </summary>
-    public class PoolManager
+    [CreateAssetMenu(fileName = "PoolsManager", menuName = "SKU/Managers/Pools Manager")]
+    public class PoolManager: AManagers
     {
         /// <summary>
         /// Array of pool
@@ -35,9 +36,14 @@ namespace SKU
             }
         }
 
-        #region Constructor
+        public static PoolManager Instance
+        {
+            get { return GameManager.Instance.Get(typeof(PoolManager)) as PoolManager; }
+        }
 
-        public PoolManager()
+        #region Override
+
+        public override void Init()
         {
             _poolsKey = 0;
             _pools = new APool[1];
