@@ -10,7 +10,7 @@ namespace SKU {
         {
             if (_localizationContainer != null)
             {
-                _localizationContainer.sprite = GameManager.Instance.Localization.GetSprite(Key);
+                _localizationContainer.sprite = LocalizationManager.Instance.GetSprite(Key);
             } else
             {
                 Log.WarningLocalization("Missing SPRITE to be localized on the gameobject [" + gameObject.name + "]", gameObject);

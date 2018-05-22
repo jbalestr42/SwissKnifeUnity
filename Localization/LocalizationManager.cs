@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace SKU { 
+namespace SKU {
 
-    public class LocalizationManager : MonoBehaviour{
+    [CreateAssetMenu(fileName = "LocalizationsManager", menuName = "SKU/Managers/Localizations Manager")]
+    public class LocalizationManager : AManagers{
 
         #region Variables
 
@@ -21,22 +22,14 @@ namespace SKU {
         private string _currentLanguageKey = string.Empty;
         private Language _currentLanguage;
 
+        public static LocalizationManager Instance
+        {
+            get { return GameManager.Instance.Get(typeof(LocalizationManager)) as LocalizationManager; }
+        }
+
         #endregion
 
         #region Methods
-
-        public void Init()
-        {
-            _localizedElements = new List<ALocalizeBase>();
-
-            if (!PlayerPrefs.HasKey(PlayerPrefsKey.kplayerPrefsKey))
-            {
-                PlayerPrefs.SetString(PlayerPrefsKey.kplayerPrefsKey, kDefaultLanguage);
-                PlayerPrefs.Save();
-            }
-
-            LoadLanguage(PlayerPrefs.GetString(PlayerPrefsKey.kplayerPrefsKey), true);
-        }
 
         public void LoadLanguage(string languageKey, bool gameInitialization = false)
         {
@@ -91,6 +84,19 @@ namespace SKU {
         public AudioClip GetAudioClip(string key)
         {
             return _currentLanguage.GetAudioClip(key);
+        }
+
+        public override void Init()
+        {
+            _localizedElements = new List<ALocalizeBase>();
+
+            if (!PlayerPrefs.HasKey(PlayerPrefsKey.kplayerPrefsKey))
+            {
+                PlayerPrefs.SetString(PlayerPrefsKey.kplayerPrefsKey, kDefaultLanguage);
+                PlayerPrefs.Save();
+            }
+
+            LoadLanguage(PlayerPrefs.GetString(PlayerPrefsKey.kplayerPrefsKey), true);
         }
 
         #endregion
