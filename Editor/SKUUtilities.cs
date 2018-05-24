@@ -25,6 +25,7 @@ namespace SKU
             {
                 if (directory.Contains("Example"))
                 {
+                    Directory.Delete(directory, true);
                     Log.Editor("Folder deleted: + " + directory);
                 } else
                 {
