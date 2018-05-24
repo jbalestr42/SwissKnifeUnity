@@ -25,7 +25,6 @@ namespace SKU
         /// <summary>
         /// Initialize the pool with a defined number of item
         /// </summary>
-        /// <param name="baseSize">Base size of the pool</param>
         protected void InitPool()
         {
             for (int i = 0; i < _pool.Length; ++i)
