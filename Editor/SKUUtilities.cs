@@ -15,6 +15,7 @@ namespace SKU
             string path = Application.dataPath + "/SKU";
 
             RecursiveDeletion(path);
+            AssetDatabase.Refresh();
 
             Log.Editor("Example folders deletion complete.");
         }
