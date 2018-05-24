@@ -64,7 +64,20 @@ namespace SKU
 
             for (int i = 0; i < _popupPanelsList.Count; ++i)
             {
-                _popupPanels.Add(_popupPanelsList[i].GetType(), _popupPanelsList[i]);
+                if (_popupPanelsList[i] == null)
+                {
+                    Log.Error("Element at index [" + i + "] of PopupManager is null");
+                    continue;
+                }
+
+                if (!_popupPanels.ContainsKey(_popupPanelsList[i].GetType()))
+                {
+                    _popupPanels.Add(_popupPanelsList[i].GetType(), _popupPanelsList[i]);
+                }
+                else
+                {
+                    Log.Error("An object of type [" + _popupPanelsList[i].GetType().ToString() + "] is already present inside the PopupManager.");
+                }
             }
 
             _popupPanelsList.Clear();

@@ -15,4 +15,6 @@ MonoBehaviour:
     type: 2}
   _UIManagerParts:
   - {fileID: 114437886802913540, guid: 2f34befe25f69394f935f4071831af02, type: 2}
+  - {fileID: 0}
+  - {fileID: 114437886802913540, guid: 2f34befe25f69394f935f4071831af02, type: 2}
   - {fileID: 114592229830354048, guid: ae586778f81647543939acb6c196435b, type: 2}

@@ -90,11 +90,22 @@ namespace SKU {
             _uiManagers = new Dictionary<Type, UIManagerParts>();
 
             for (int i = 0; i < _UIManagerParts.Count; ++i)
-            {
+            {   
+                if (_UIManagerParts[i] == null)
+                {
+                    Log.Error("Element at index [" + i + "] of UIManagerParts is null");
+                    continue;
+                }
+
                 UIManagerParts newPart = Instantiate(_UIManagerParts[i], GetCanvas(_UIManagerParts[i].CanvasToInstantiate));
                 newPart.Init();
 
-                _uiManagers.Add(_UIManagerParts[i].GetType(), newPart);
+                if (!_uiManagers.ContainsKey(_UIManagerParts[i].GetType())) {
+                    _uiManagers.Add(_UIManagerParts[i].GetType(), newPart);
+                } else
+                {
+                    Log.Error("An object of type [" + _UIManagerParts[i].GetType().ToString() + "] is already present inside the UIManager.");
+                }
             }
         }
 

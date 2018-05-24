@@ -23,6 +23,7 @@ namespace SKU
             Error = 3,
             Localization = 4,
             Editor = 5,
+            UI = 6,
             Log = 99
         }
         
@@ -59,6 +60,7 @@ namespace SKU
         private static string _logClassInformationColor = "grey";
         private static string _localizationColor = "brown";
         private static string _editorColor = "orange";
+        private static string _uiColor = "black";
 
         private static string _standardPath;
 
@@ -88,6 +90,7 @@ namespace SKU
             _logs.Add(LogType.Log, new LogStruct());
             _logs.Add(LogType.Localization, new LogStruct());
             _logs.Add(LogType.Editor, new LogStruct());
+            _logs.Add(LogType.UI, new LogStruct());
             _hasDictionaryBeenInitialized = true;
         }
 
@@ -124,6 +127,13 @@ namespace SKU
             Init();
             AddToLogString(message, LogType.Editor);
             Debug.Log(string.Format("<color={0}>{1}</color>", _editorColor, message));
+        }
+
+        public static void UI(string message, GameObject gO = null)
+        {
+            Init();
+            AddToLogString(message, LogType.UI);
+            Debug.Log(string.Format("<color={0}>{1}</color>", _uiColor, message));
         }
 
         public static void Warning(string message, GameObject gO = null)
@@ -183,6 +193,7 @@ namespace SKU
                 SaveLog(LogType.Network);
                 SaveLog(LogType.Localization);
                 SaveLog(LogType.Editor);
+                SaveLog(LogType.UI);
                 SaveLog(LogType.Warning);
                 SaveLog(LogType.Error);
                 SaveLog(LogType.Log);
