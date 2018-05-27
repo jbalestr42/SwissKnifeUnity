@@ -14,4 +14,12 @@ public class TestPopup : MonoBehaviour {
     {
         PopupManager.Instance.Get<PopupExample>(typeof(PopupExampleSecond));
     }
+
+    public void OnClickThird()
+    {
+        var popup = PopupManager.Instance.Get<IntInputFieldPopupPanel>(typeof(IntInputFieldPopupPanel));
+        popup.Initialize((string value) => {
+            Log.Gameplay("Value is " + value);
+        });
+    }
 }
