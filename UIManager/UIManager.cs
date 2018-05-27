@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System;
 using UnityEngine;
 
@@ -97,10 +96,9 @@ namespace SKU {
                     continue;
                 }
 
-                UIManagerParts newPart = Instantiate(_UIManagerParts[i], GetCanvas(_UIManagerParts[i].CanvasToInstantiate));
-                newPart.Init();
-
                 if (!_uiManagers.ContainsKey(_UIManagerParts[i].GetType())) {
+                    UIManagerParts newPart = Instantiate(_UIManagerParts[i], GetCanvas(_UIManagerParts[i].CanvasToInstantiate));
+                    newPart.Init();
                     _uiManagers.Add(_UIManagerParts[i].GetType(), newPart);
                 } else
                 {

@@ -7,11 +7,11 @@ public class TestPopup : MonoBehaviour {
 
 	public void OnClickOne()
     {
-        //PopupManager.Instance.Get<PopupExample>(typeof(PopupExample));
+        PopupManager.Instance.Get<PopupExample>(typeof(PopupExample));
     }
 
     public void OnClickSecond()
     {
-        //PopupManager.Instance.Get<PopupExample>(typeof(PopupExampleSecond));
+        PopupManager.Instance.Get<PopupExample>(typeof(PopupExampleSecond));
     }
 }

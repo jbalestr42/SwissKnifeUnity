@@ -16,8 +16,8 @@ namespace SKU
     {
 
         public List<AManagers> ManagersList;
-
-        private Dictionary<Type, AManagers> _managers = new Dictionary<Type, AManagers>();
+        private ListUnserializerTypeObject<AManagers> _managers;
+        private Dictionary<Type, AManagers> _managersDIC = new Dictionary<Type, AManagers>();
 
         #region Properties
         
@@ -25,7 +25,7 @@ namespace SKU
         {
             AManagers value = null;
 
-            if (!_managers.TryGetValue(key, out value))
+            if (!_managersDIC.TryGetValue(key, out value))
             {
                 Log.Error("The game manager does not contains a manager of type [" + key.ToString() + "]", gameObject);
             }
@@ -39,14 +39,15 @@ namespace SKU
 
         private void Awake()
         {
+            _managers = new ListUnserializerTypeObject<AManagers>();
+
             for (int i = 0; i < ManagersList.Count; ++i)
             {
                 ManagersList[i].Init();
-                _managers.Add(ManagersList[i].GetType(), ManagersList[i]);
+                _managersDIC.Add(ManagersList[i].GetType(), ManagersList[i]);
             }
 
-            ManagersList.Clear();
-            ManagersList = null;
+            _managers.Initialize(ManagersList, true);
         }
 
         #endregion

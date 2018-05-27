@@ -1,26 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using System;
 
 namespace SKU
 {
-    public abstract class PopupPanel : MonoBehaviour {
-        [SerializeField]
-        private Button _closeButton;
-
-        protected void Awake()
-        {
-            _closeButton.onClick.AddListener(OnClickCloseButton);
-        }
-
-        protected void OnClickCloseButton()
-        {
-            Destroy(gameObject);
-        }
-    }
-
     public class PopupManager : UIManagerParts
     {
         #region Getter 
@@ -32,18 +15,17 @@ namespace SKU
         #region Variables
 
         [SerializeField]
-        private List<PopupPanel> _popupPanelsList;
-
-        private Dictionary<Type, PopupPanel> _popupPanels;
+        private List<APopupPanelBase> _popupPanelsList;
+        private ListUnserializerTypeObject<APopupPanelBase> _popupPanels;
 
         #endregion
 
         #region Methods 
 
-        public T Get<T>(Type key) where T : PopupPanel
+        public T Get<T>(Type key) where T : APopupPanelBase
         {
-            PopupPanel popup;
-            _popupPanels.TryGetValue(key, out popup);
+            APopupPanelBase popup;
+            _popupPanels.Dic.TryGetValue(key, out popup);
 
             if (popup == null)
             {
@@ -60,27 +42,8 @@ namespace SKU
 
         public override void Init()
         {
-            _popupPanels = new Dictionary<Type, PopupPanel>();
-
-            for (int i = 0; i < _popupPanelsList.Count; ++i)
-            {
-                if (_popupPanelsList[i] == null)
-                {
-                    Log.Error("Element at index [" + i + "] of PopupManager is null");
-                    continue;
-                }
-
-                if (!_popupPanels.ContainsKey(_popupPanelsList[i].GetType()))
-                {
-                    _popupPanels.Add(_popupPanelsList[i].GetType(), _popupPanelsList[i]);
-                }
-                else
-                {
-                    Log.Error("An object of type [" + _popupPanelsList[i].GetType().ToString() + "] is already present inside the PopupManager.");
-                }
-            }
-
-            _popupPanelsList.Clear();
+            _popupPanels = new ListUnserializerTypeObject<APopupPanelBase>();
+            _popupPanels.Initialize(_popupPanelsList, true);
         }
 
         #endregion

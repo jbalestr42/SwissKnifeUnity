@@ -3,4 +3,4 @@ using System.Collections.Generic;
 using UnityEngine;
 using SKU;
 
-public class PopupExampleSecond : PopupPanel { }
+public class PopupExample : APopupPanelBase { }
