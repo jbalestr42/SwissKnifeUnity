@@ -11,8 +11,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9fd70aa4327b444889f18e104a77af3, type: 3}
   m_Name: UIManager
   m_EditorClassIdentifier: 
-  _canvasPrefab: {fileID: 1162027197161018, guid: 68f76f2c31101a648a2d78a0ec07a76e,
-    type: 2}
+  CanvasPrefab:
+    keys:
+    - Canvas
+    values:
+    - {fileID: 1251221433959530, guid: 9d33c2590633a764097a38c6cc4e34aa, type: 2}
   _UIManagerParts:
   - {fileID: 114437886802913540, guid: 2f34befe25f69394f935f4071831af02, type: 2}
   - {fileID: 114592229830354048, guid: ae586778f81647543939acb6c196435b, type: 2}

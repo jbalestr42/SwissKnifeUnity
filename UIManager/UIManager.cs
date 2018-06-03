@@ -11,9 +11,9 @@ namespace SKU {
     public abstract class AUIManagerParts : MonoBehaviour
     {
         [SerializeField]
-        private AvailableCanvas _canvasToInstantiate;
+        private string _canvasToInstantiate;
 
-        public AvailableCanvas CanvasToInstantiate { get { return _canvasToInstantiate; } }
+        public string CanvasToInstantiate { get { return _canvasToInstantiate; } }
 
         public abstract void Init();
     }
@@ -32,18 +32,17 @@ namespace SKU {
 
         #region Variables
 
-        public const string kTagCanvas = "Canvas";
+        [SerializeField]
+        private StringGameObjectDictionary CanvasPrefab = StringGameObjectDictionary.New<StringGameObjectDictionary>();
+        public Dictionary<string, GameObject> _canvasPrefab
+        {
+            get { return CanvasPrefab.dictionary; }
+        }
 
         [SerializeField]
-        private GameObject _canvasPrefab;
+        private List<AUIManagerParts> _UIManagerParts = new List<AUIManagerParts>();
 
-        [SerializeField]
-        private List<AUIManagerParts> _UIManagerParts;
-
-        private GameObject _canvas;
         private Dictionary<Type, AUIManagerParts> _uiManagers;
-
-        public GameObject Canvas { get { return _canvas; } }
 
         public AUIManagerParts Get(Type key)
         {
@@ -61,16 +60,17 @@ namespace SKU {
 
         #region Methods
 
-        private Transform GetCanvas(AvailableCanvas canvasSelected)
+        private Transform GetCanvas(string canvasSelected)
         {
-            switch(canvasSelected) {
-                case AvailableCanvas.Canvas:
-                    return _canvas.transform;
+            GameObject canvas = GameObject.FindGameObjectWithTag(canvasSelected);
 
-                default:
-                    Log.Warning("Canvas selected by default");
-                    return _canvas.transform;
+            if (canvas == null)
+            {
+                Log.Error("The canvas [" + canvasSelected + "] is not existing.");
+                return null;
             }
+
+            return canvas.transform;
         }
 
         #endregion
@@ -79,11 +79,14 @@ namespace SKU {
 
         public override void Init()
         {
-            _canvas = GameObject.FindGameObjectWithTag(kTagCanvas);
-
-            if (_canvas == null)
+            foreach (KeyValuePair < string, GameObject> pair in _canvasPrefab)
             {
-                _canvas = Instantiate(_canvasPrefab);
+                GameObject canvas = GameObject.FindGameObjectWithTag(pair.Key);
+
+                if (pair.Value == null)
+                {
+                    Instantiate(pair.Value);
+                }
             }
 
             _uiManagers = new Dictionary<Type, AUIManagerParts>();

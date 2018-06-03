@@ -43,7 +43,6 @@ namespace SKU
             for (int i = 0; i < ManagersList.Count; ++i)
             {
                 ManagersList[i].Init();
-                _managers.Dic.Add(ManagersList[i].GetType(), ManagersList[i]);
             }
 
             _managers.Initialize(ManagersList, true);
