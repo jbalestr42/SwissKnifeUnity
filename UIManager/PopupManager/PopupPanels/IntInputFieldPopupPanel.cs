@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using SKU;
 using System;
 
-public class IntInputFieldPopupPanel : APopupPanelBase {
+public class IntInputFieldPopupPanel : PopupPanelBase {
 
     [SerializeField]
     private Button _okButton;

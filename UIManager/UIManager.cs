@@ -8,7 +8,7 @@ namespace SKU {
         Canvas = 0
     }
 
-    public abstract class UIManagerParts : MonoBehaviour
+    public abstract class AUIManagerParts : MonoBehaviour
     {
         [SerializeField]
         private AvailableCanvas _canvasToInstantiate;
@@ -38,16 +38,16 @@ namespace SKU {
         private GameObject _canvasPrefab;
 
         [SerializeField]
-        private List<UIManagerParts> _UIManagerParts;
+        private List<AUIManagerParts> _UIManagerParts;
 
         private GameObject _canvas;
-        private Dictionary<Type, UIManagerParts> _uiManagers;
+        private Dictionary<Type, AUIManagerParts> _uiManagers;
 
         public GameObject Canvas { get { return _canvas; } }
 
-        public UIManagerParts Get(Type key)
+        public AUIManagerParts Get(Type key)
         {
-            UIManagerParts value = null;
+            AUIManagerParts value = null;
 
             if (!_uiManagers.TryGetValue(key, out value))
             {
@@ -86,7 +86,7 @@ namespace SKU {
                 _canvas = Instantiate(_canvasPrefab);
             }
 
-            _uiManagers = new Dictionary<Type, UIManagerParts>();
+            _uiManagers = new Dictionary<Type, AUIManagerParts>();
 
             for (int i = 0; i < _UIManagerParts.Count; ++i)
             {   
@@ -97,7 +97,7 @@ namespace SKU {
                 }
 
                 if (!_uiManagers.ContainsKey(_UIManagerParts[i].GetType())) {
-                    UIManagerParts newPart = Instantiate(_UIManagerParts[i], GetCanvas(_UIManagerParts[i].CanvasToInstantiate));
+                    AUIManagerParts newPart = Instantiate(_UIManagerParts[i], GetCanvas(_UIManagerParts[i].CanvasToInstantiate));
                     newPart.Init();
                     _uiManagers.Add(_UIManagerParts[i].GetType(), newPart);
                 } else

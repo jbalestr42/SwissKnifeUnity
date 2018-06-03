@@ -4,7 +4,7 @@ using System;
 
 namespace SKU
 {
-    public class PopupManager : UIManagerParts
+    public class PopupManager : AUIManagerParts
     {
         #region Getter 
         
@@ -15,16 +15,16 @@ namespace SKU
         #region Variables
 
         [SerializeField]
-        private List<APopupPanelBase> _popupPanelsList;
-        private ListUnserializerTypeObject<APopupPanelBase> _popupPanels;
+        private List<PopupPanelBase> _popupPanelsList;
+        private ListUnserializerTypeObject<PopupPanelBase> _popupPanels;
 
         #endregion
 
         #region Methods 
 
-        public T Get<T>(Type key) where T : APopupPanelBase
+        public T Get<T>(Type key) where T : PopupPanelBase
         {
-            APopupPanelBase popup;
+            PopupPanelBase popup = null;
             _popupPanels.Dic.TryGetValue(key, out popup);
 
             if (popup == null)
@@ -42,7 +42,7 @@ namespace SKU
 
         public override void Init()
         {
-            _popupPanels = new ListUnserializerTypeObject<APopupPanelBase>();
+            _popupPanels = new ListUnserializerTypeObject<PopupPanelBase>();
             _popupPanels.Initialize(_popupPanelsList, true);
         }
 

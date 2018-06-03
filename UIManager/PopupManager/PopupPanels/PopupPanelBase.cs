@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace SKU
 {
-    public abstract class APopupPanelBase : MonoBehaviour
+    public abstract class PopupPanelBase : MonoBehaviour
     {
         [SerializeField]
         private Button _closeButton;
