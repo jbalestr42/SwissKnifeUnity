@@ -14,7 +14,9 @@ MonoBehaviour:
   CanvasPrefab:
     keys:
     - Canvas
+    - CanvasTop
     values:
+    - {fileID: 1251221433959530, guid: 9d33c2590633a764097a38c6cc4e34aa, type: 2}
     - {fileID: 1251221433959530, guid: 9d33c2590633a764097a38c6cc4e34aa, type: 2}
   _UIManagerParts:
   - {fileID: 114437886802913540, guid: 2f34befe25f69394f935f4071831af02, type: 2}

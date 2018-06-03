@@ -67,7 +67,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd89afe662ca23948a6b352c35e06883, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvasToInstantiate: Canvas
   _popupPanelsList:
   - {fileID: 114389710075182814, guid: b58ef99e695107549aca53d5b9eadff0, type: 2}
   - {fileID: 114016484056528222, guid: 585b6ce6a62f8c94d93bb2157aa63331, type: 2}

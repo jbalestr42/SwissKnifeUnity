@@ -10,10 +10,13 @@ namespace SKU {
 
     public abstract class AUIManagerParts : MonoBehaviour
     {
-        [SerializeField]
         private string _canvasToInstantiate;
 
-        public string CanvasToInstantiate { get { return _canvasToInstantiate; } }
+        public string CanvasToInstantiate
+        {
+            get { return _canvasToInstantiate; }
+            set { _canvasToInstantiate = value; }
+        }
 
         public abstract void Init();
     }
@@ -83,7 +86,7 @@ namespace SKU {
             {
                 GameObject canvas = GameObject.FindGameObjectWithTag(pair.Key);
 
-                if (pair.Value == null)
+                if (canvas == null)
                 {
                     Instantiate(pair.Value);
                 }

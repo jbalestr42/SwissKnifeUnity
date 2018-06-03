@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 using UnityEditor;
+using UnityEngine;
 
 namespace SKU
 {
@@ -15,6 +14,7 @@ namespace SKU
             if (GUILayout.Button("Create needed tags"))
             {
                 InitializeUIManager((UIManager)target);
+                SetCurrentTagUsed((UIManager)target);
             }
 
             if (GUILayout.Button("Use current tags for UIManager"))
@@ -66,11 +66,25 @@ namespace SKU
 
         private void SetCurrentTagUsed(UIManager uiManager)
         {
+            string playerPref = "";
+            bool isFirst = true;
             Log.UI("Tags used for the UIManager: ");
             foreach (KeyValuePair<string, GameObject> pair in uiManager._canvasPrefab)
             {
                 Log.UI("- " + pair.Key);
+
+                if (!isFirst)
+                {
+                    playerPref += "#";
+                } else
+                {
+                    isFirst = false;
+                }
+
+                playerPref += pair.Key;
             }
+
+            PlayerPrefs.SetString(PlayerPrefsKey.kplayerPrefsCanvasSelected, playerPref);
         }
     }
 }
