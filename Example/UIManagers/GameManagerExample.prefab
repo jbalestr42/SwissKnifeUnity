@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4244353665651836}
   - component: {fileID: 114009724372344890}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: GameManagerExample
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,6 +52,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ManagersList:
-  - {fileID: 11400000, guid: 4f14f7190372d4d4bb4df479e88d029f, type: 2}
-  - {fileID: 11400000, guid: 6b1f2ab92ac0ae04693d5b028a76bd0a, type: 2}
   - {fileID: 11400000, guid: 0a3fce8177654e9429488e9a268ed3db, type: 2}

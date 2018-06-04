@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace SKU
 {
     // ---------------
@@ -38,4 +40,17 @@ namespace SKU
         }
     }
     internal class SerializableStringLanguageTemplate : SerializableKeyValueTemplate<string, Language> { }
+
+    // ---------------
+    //  String => GameObject
+    // ---------------
+    [UnityEditor.CustomPropertyDrawer(typeof(StringGameObjectDictionary))]
+    public class StringGameObject : SerializableDictionaryDrawer<string, GameObject>
+    {
+        protected override SerializableKeyValueTemplate<string, GameObject> GetTemplate()
+        {
+            return GetGenericTemplate<SerializableStringGameObjectTemplate>();
+        }
+    }
+    internal class SerializableStringGameObjectTemplate : SerializableKeyValueTemplate<string, GameObject> { }
 }

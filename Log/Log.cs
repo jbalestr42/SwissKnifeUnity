@@ -22,6 +22,8 @@ namespace SKU
             Warning = 2,
             Error = 3,
             Localization = 4,
+            Editor = 5,
+            UI = 6,
             Log = 99
         }
         
@@ -57,6 +59,8 @@ namespace SKU
         private static string _networkColor = "blue";
         private static string _logClassInformationColor = "grey";
         private static string _localizationColor = "brown";
+        private static string _editorColor = "orange";
+        private static string _uiColor = "black";
 
         private static string _standardPath;
 
@@ -85,6 +89,8 @@ namespace SKU
             _logs.Add(LogType.Error, new LogStruct());
             _logs.Add(LogType.Log, new LogStruct());
             _logs.Add(LogType.Localization, new LogStruct());
+            _logs.Add(LogType.Editor, new LogStruct());
+            _logs.Add(LogType.UI, new LogStruct());
             _hasDictionaryBeenInitialized = true;
         }
 
@@ -114,6 +120,20 @@ namespace SKU
             Init();
             AddToLogString(message, LogType.Network);
             Debug.Log(string.Format("<color={0}>{1}</color>", _networkColor, message));
+        }
+
+        public static void Editor(string message, GameObject gO = null)
+        {
+            Init();
+            AddToLogString(message, LogType.Editor);
+            Debug.Log(string.Format("<color={0}>{1}</color>", _editorColor, message));
+        }
+
+        public static void UI(string message, GameObject gO = null)
+        {
+            Init();
+            AddToLogString(message, LogType.UI);
+            Debug.Log(string.Format("<color={0}>{1}</color>", _uiColor, message));
         }
 
         public static void Warning(string message, GameObject gO = null)
@@ -171,6 +191,9 @@ namespace SKU
             {
                 SaveLog(LogType.Gameplay);
                 SaveLog(LogType.Network);
+                SaveLog(LogType.Localization);
+                SaveLog(LogType.Editor);
+                SaveLog(LogType.UI);
                 SaveLog(LogType.Warning);
                 SaveLog(LogType.Error);
                 SaveLog(LogType.Log);
@@ -182,52 +205,20 @@ namespace SKU
 
         private static void SaveLog(LogType logType)
         {
-            string path = string.Format("{0}/{1}_", _standardPath, DateTime.Now.ToString("MM_dd_HH_mm_ss"));
-
-            switch (logType)
-            {
-                case LogType.Gameplay:
-                    path = string.Format("{0}Gameplay", path);
-                    break;
-
-                case LogType.Network:
-                    path = string.Format("{0}Network", path);
-                    break;
-
-                case LogType.Warning:
-                    path = string.Format("{0}Warning", path);
-                    break;
-
-                case LogType.Error:
-                    path = string.Format("{0}Error", path);
-                    break;
-
-                case LogType.Log:
-                    path = string.Format("{0}_Info", path);
-                    break;
-
-                default:
-                    Log.Error("No behaviour for the current log type: " + logType.ToString());
-                    return;
-            }
-            WriteInFile(path, logType);
-        }
-
-        private static void WriteInFile(string path, LogType logType)
-        {
-            string finalPath = string.Format("{0}.log",path);
-
-            StreamWriter sr = File.CreateText(finalPath);
+            string path = string.Format("{0}/{1}_{2}.log", _standardPath, DateTime.Now.ToString("MM_dd_HH_mm_ss"), logType.ToString());
+            StreamWriter sr = File.CreateText(path);
             LogStruct log;
+
             _logs.TryGetValue(logType, out log);
-            
-            foreach(string logLine in log.Logs) {
+
+            foreach (string logLine in log.Logs)
+            {
                 sr.WriteLine(logLine);
             }
 
             sr.Close();
 
-            Log.Info(string.Format("Logs saved at this address: {0}", finalPath));
+            Log.Info(string.Format("Logs saved at this address: {0}", path));
         }
     }
 }

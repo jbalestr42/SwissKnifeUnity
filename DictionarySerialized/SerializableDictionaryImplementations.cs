@@ -21,4 +21,10 @@ namespace SKU
     // ---------------
     [Serializable]
     public class StringLanguageDictionary : SerializableDictionary<string, Language> { }
+
+    // ---------------
+    //  string => GameObject
+    // ---------------
+    [Serializable]
+    public class StringGameObjectDictionary : SerializableDictionary<string, GameObject> { }
 }
