@@ -17,9 +17,15 @@ public class TestPopup : MonoBehaviour {
 
     public void OnClickThird()
     {
-        var popup = PopupManager.Instance.Get<IntInputFieldPopupPanel>(typeof(IntInputFieldPopupPanel));
+        var popup = PopupManager.Instance.Get<InputFieldPopupPanel>(typeof(InputFieldNumberPopup));
         popup.Initialize((string value) => {
             Log.Gameplay("Value is " + value);
-        });
+        }, IsNotANumber);
+    }
+
+    private void IsNotANumber(string value)
+    {
+        var popup = PopupManager.Instance.Get<PopupExample>(typeof(PopupExample));
+        popup.Init("[" + value + "] is not a number");
     }
 }
