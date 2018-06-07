@@ -12,6 +12,15 @@ namespace SKU
     [CreateAssetMenu(fileName = "PoolsManager", menuName = "SKU/Managers/Pools Manager")]
     public class PoolManager: AManagers
     {
+        #region Getter 
+
+        public static PoolManager Instance
+        {
+            get { return GameManager.Instance.Get(typeof(PoolManager)) as PoolManager; }
+        }
+
+        #endregion
+
         /// <summary>
         /// Array of pool
         /// </summary>
@@ -34,11 +43,6 @@ namespace SKU
 
                 return _poolsKey++;
             }
-        }
-
-        public static PoolManager Instance
-        {
-            get { return GameManager.Instance.Get(typeof(PoolManager)) as PoolManager; }
         }
 
         #region Methods

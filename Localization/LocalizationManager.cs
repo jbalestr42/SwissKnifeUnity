@@ -6,6 +6,15 @@ namespace SKU {
     [CreateAssetMenu(fileName = "LocalizationsManager", menuName = "SKU/Managers/Localizations Manager")]
     public class LocalizationManager : AManagers{
 
+        #region Getter 
+
+        public static LocalizationManager Instance
+        {
+            get { return GameManager.Instance.Get(typeof(LocalizationManager)) as LocalizationManager; }
+        }
+
+        #endregion
+
         #region Variables
 
         private const string kDefaultLanguage = "en-US";
@@ -21,11 +30,6 @@ namespace SKU {
 
         private string _currentLanguageKey = string.Empty;
         private Language _currentLanguage;
-
-        public static LocalizationManager Instance
-        {
-            get { return GameManager.Instance.Get(typeof(LocalizationManager)) as LocalizationManager; }
-        }
 
         #endregion
 
