@@ -16,16 +16,31 @@ public class InputFieldPopupPanel : PopupPanelBase {
     [SerializeField]
     private InputField _inputField;
 
-    public void Initialize(Action<string> callback, Action<string> callbackWrongInput = null)
+    public delegate bool CheckFunction(string value);
+    private CheckFunction _checkFunction;
+
+    public void Initialize(string placeHolderText, Action<string> callback, CheckFunction callbackCheck = null, Action<string> callbackWrongInput = null)
     {
+        if (callbackCheck == null)
+        {
+            _checkFunction = BaseCheckFunction;
+        }
+        else
+        {
+            _checkFunction = callbackCheck;
+        }
+
+        _inputField.text = placeHolderText;
         _cancelButton.onClick.AddListener(OnClickCloseButton);
         _okButton.onClick.AddListener(
-            delegate {
-                if (CheckFunction(_inputField.text))
+            delegate
+            {
+                if (_checkFunction(_inputField.text))
                 {
                     callback(_inputField.text);
                     OnClickCloseButton();
-                } else
+                }
+                else
                 {
                     if (callbackWrongInput != null)
                     {
@@ -33,10 +48,10 @@ public class InputFieldPopupPanel : PopupPanelBase {
                     }
                 }
             }
-            );
+        );
     }
 
-    protected virtual bool CheckFunction(string value)
+    private bool BaseCheckFunction(string value)
     {
         return true;
     }
