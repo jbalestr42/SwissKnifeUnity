@@ -6,7 +6,7 @@ using UnityEditor;
 namespace SKU
 {
     [CustomEditor(typeof(AUIManagerParts), true)]
-    public class SomeEditor : Editor
+    public class AUIManagerPartsEditor : Editor
     {
         string[] _choices;
         int _choiceIndex = 0;
@@ -18,14 +18,23 @@ namespace SKU
                 return;
             }
 
+            var managerParts = target as AUIManagerParts;
             _choices = PlayerPrefs.GetString(PlayerPrefsKey.kplayerPrefsCanvasSelected).Split('#');
+
+            for (int i = 0; i < _choices.Length; ++i)
+            {
+                if (managerParts.CanvasToInstantiate == _choices[i])
+                {
+                    _choiceIndex = i;
+                    break;
+                }
+            }
 
             DrawDefaultInspector();
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("Canvas to instantiate the layer");
 
             _choiceIndex = EditorGUILayout.Popup(_choiceIndex, _choices);
-            var managerParts = target as AUIManagerParts;
 
             managerParts.CanvasToInstantiate = _choices[_choiceIndex];
             EditorUtility.SetDirty(target);

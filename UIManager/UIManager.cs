@@ -10,6 +10,7 @@ namespace SKU {
 
     public abstract class AUIManagerParts : MonoBehaviour
     {
+        [SerializeField]
         private string _canvasToInstantiate;
 
         public string CanvasToInstantiate
@@ -84,6 +85,12 @@ namespace SKU {
         {
             foreach (KeyValuePair < string, GameObject> pair in _canvasPrefab)
             {
+                if (String.IsNullOrEmpty(pair.Key))
+                {
+                    Log.UI("Null value for the tag of a canvas detected inside the UIManager");
+                    continue;
+                }
+
                 GameObject canvas = GameObject.FindGameObjectWithTag(pair.Key);
 
                 if (canvas == null)
