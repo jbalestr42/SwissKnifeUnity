@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace SKU { 
     public enum AvailableCanvas
@@ -37,14 +38,18 @@ namespace SKU {
         #region Variables
 
         [SerializeField]
-        private StringGameObjectDictionary CanvasPrefab = StringGameObjectDictionary.New<StringGameObjectDictionary>();
-        public Dictionary<string, GameObject> _canvasPrefab
-        {
-            get { return CanvasPrefab.dictionary; }
-        }
+        private Canvas _canvasArchetype;
+
+        [SerializeField]
+        private EventSystem _eventSystemArchetype;
+
+        [SerializeField]
+        private List<string> _canvas;
 
         [SerializeField]
         private List<AUIManagerParts> _UIManagerParts = new List<AUIManagerParts>();
+
+        public List<String> Canvas { get { return _canvas; } }
 
         private Dictionary<Type, AUIManagerParts> _uiManagers;
 
@@ -83,19 +88,30 @@ namespace SKU {
 
         public override void Init()
         {
-            foreach (KeyValuePair < string, GameObject> pair in _canvasPrefab)
+            for(int i = 0; i < _canvas.Count; ++i)
             {
-                if (String.IsNullOrEmpty(pair.Key))
+                if (String.IsNullOrEmpty(_canvas[i]))
                 {
                     Log.UI("Null value for the tag of a canvas detected inside the UIManager");
                     continue;
                 }
 
-                GameObject canvas = GameObject.FindGameObjectWithTag(pair.Key);
-
-                if (canvas == null)
+                if (GameObject.FindGameObjectWithTag(_canvas[i]) == null)
                 {
-                    Instantiate(pair.Value);
+                    GameObject newCanvas = Instantiate(_canvasArchetype, null).gameObject;
+                    newCanvas.tag = _canvas[i];
+                    newCanvas.transform.SetAsLastSibling();
+                }
+            }
+
+            if (GameObject.FindObjectOfType<EventSystem>() == null)
+            {
+                if (_eventSystemArchetype == null)
+                {
+                    Log.Error("No Event System in the scene and no event system set as archetype inside the UIManager");
+                } else
+                {
+                    Instantiate(_eventSystemArchetype, null).transform.SetAsLastSibling();
                 }
             }
 

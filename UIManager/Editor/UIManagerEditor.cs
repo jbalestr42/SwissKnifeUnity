@@ -39,12 +39,20 @@ namespace SKU
         {
             SerializedProperty tagsProp = tagManager.FindProperty("tags");
 
-            foreach (KeyValuePair<string, GameObject> pair in uiManager._canvasPrefab)
+            for (int i = 0; i < uiManager.Canvas.Count; ++i)
             {
                 bool isPresent = false;
+                string currentCanvas = uiManager.Canvas[i];
+
+                if (string.IsNullOrEmpty(currentCanvas))
+                {
+                    Log.UI(i + " - Canvas EMPTY !");
+                    continue;
+                }
+
                 for (int tagIndex = 0; tagIndex < tagsProp.arraySize; ++tagIndex)
                 {
-                    if (tagsProp.GetArrayElementAtIndex(tagIndex).stringValue.Equals(pair.Key))
+                    if (tagsProp.GetArrayElementAtIndex(tagIndex).stringValue.Equals(currentCanvas))
                     {
                         isPresent = true;
                         break;
@@ -54,12 +62,12 @@ namespace SKU
                 if (!isPresent)
                 {
                     tagsProp.InsertArrayElementAtIndex(0);
-                    tagsProp.GetArrayElementAtIndex(0).stringValue = pair.Key;
-                    Log.Editor("Tag [" + pair.Key + "] added.");
+                    tagsProp.GetArrayElementAtIndex(0).stringValue = currentCanvas;
+                    Log.Editor(i + " - Tag [" + currentCanvas + "] added.");
                 }
                 else
                 {
-                    Log.Editor("Tag [" + pair.Key + "] already present.");
+                    Log.Editor(i + " - Tag [" + currentCanvas + "] already present.");
                 }
             }
         }
@@ -69,9 +77,19 @@ namespace SKU
             string playerPref = "";
             bool isFirst = true;
             Log.UI("Tags used for the UIManager: ");
-            foreach (KeyValuePair<string, GameObject> pair in uiManager._canvasPrefab)
+
+            for (int i = 0; i < uiManager.Canvas.Count; ++i)
             {
-                Log.UI("- " + pair.Key);
+                bool isPresent = false;
+                string currentCanvas = uiManager.Canvas[i];
+
+                if (string.IsNullOrEmpty(currentCanvas))
+                {
+                    Log.UI(i + " - Canvas EMPTY !");
+                    continue;
+                }
+
+                Log.UI(i + " - " + currentCanvas);
 
                 if (!isFirst)
                 {
@@ -81,7 +99,7 @@ namespace SKU
                     isFirst = false;
                 }
 
-                playerPref += pair.Key;
+                playerPref += currentCanvas;
             }
 
             PlayerPrefs.SetString(PlayerPrefsKey.kplayerPrefsCanvasSelected, playerPref);
