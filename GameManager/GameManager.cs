@@ -38,6 +38,7 @@ namespace SKU
 
         private void Awake()
         {
+            DontDestroyOnLoad(gameObject);
             _managers = new ListUnserializerTypeObject<AManagers>();
 
             for (int i = 0; i < ManagersList.Count; ++i)
