@@ -10,7 +10,10 @@ namespace SKU
 
         protected void Awake()
         {
-            _closeButton.onClick.AddListener(OnClickCloseButton);
+            if (_closeButton != null)
+            {
+                _closeButton.onClick.AddListener(OnClickCloseButton);
+            }
         }
 
         protected void OnClickCloseButton()

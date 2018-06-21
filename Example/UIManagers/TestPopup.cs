@@ -25,6 +25,12 @@ public class TestPopup : MonoBehaviour {
         IsNotANumber);
     }
 
+    public void OnClickFourth()
+    {
+        var popup = PopupManager.Instance.Get<TextButtonPopup>(typeof(TextButtonPopup));
+        popup.Initialize("This is a description set by the user");
+    }
+
     private bool checkFunction(string value)
     {
         int number = 0;
