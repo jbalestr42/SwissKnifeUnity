@@ -24,6 +24,7 @@ namespace SKU
             Localization = 4,
             Editor = 5,
             UI = 6,
+            StateMachine = 7,
             Log = 99
         }
         
@@ -61,6 +62,7 @@ namespace SKU
         private static string _localizationColor = "brown";
         private static string _editorColor = "orange";
         private static string _uiColor = "black";
+        private static string _stateMachineColor = "purple";
 
         private static string _standardPath;
 
@@ -91,6 +93,7 @@ namespace SKU
             _logs.Add(LogType.Localization, new LogStruct());
             _logs.Add(LogType.Editor, new LogStruct());
             _logs.Add(LogType.UI, new LogStruct());
+            _logs.Add(LogType.StateMachine, new LogStruct());
             _hasDictionaryBeenInitialized = true;
         }
 
@@ -134,6 +137,13 @@ namespace SKU
             Init();
             AddToLogString(message, LogType.UI);
             Debug.Log(string.Format("<color={0}>{1}</color>", _uiColor, message));
+        }
+
+        public static void StateMachine(string message, GameObject go = null)
+        {
+            Init();
+            AddToLogString(message, LogType.StateMachine);
+            Debug.Log(string.Format("<color={0}>{1}</color>", _stateMachineColor, message));
         }
 
         public static void Warning(string message, GameObject gO = null)
