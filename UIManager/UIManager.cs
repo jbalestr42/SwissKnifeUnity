@@ -38,13 +38,13 @@ namespace SKU {
         #region Variables
 
         [SerializeField]
-        private Canvas _canvasArchetype;
+        private Canvas _canvasArchetype = null;
 
         [SerializeField]
-        private EventSystem _eventSystemArchetype;
+        private EventSystem _eventSystemArchetype = null;
 
         [SerializeField]
-        private List<string> _canvas;
+        private List<string> _canvas = new List<string>();
 
         [SerializeField]
         private List<AUIManagerParts> _UIManagerParts = new List<AUIManagerParts>();

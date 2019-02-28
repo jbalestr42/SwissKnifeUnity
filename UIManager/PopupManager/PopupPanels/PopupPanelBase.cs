@@ -6,7 +6,7 @@ namespace SKU
     public abstract class PopupPanelBase : MonoBehaviour
     {
         [SerializeField]
-        private Button _closeButton;
+        private Button _closeButton = null;
 
         protected void Awake()
         {

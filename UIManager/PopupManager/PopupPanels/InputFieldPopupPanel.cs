@@ -6,13 +6,13 @@ using System;
 public class InputFieldPopupPanel : PopupPanelBase {
 
     [SerializeField]
-    private Button _okButton;
+    private Button _okButton = null;
 
     [SerializeField]
-    private Button _cancelButton;
+    private Button _cancelButton = null;
 
     [SerializeField]
-    private InputField _inputField;
+    private InputField _inputField = null;
 
     public delegate bool CheckFunction(string value);
     private CheckFunction _checkFunction;
