@@ -15,7 +15,8 @@ namespace SKU
         #region Variables
 
         [SerializeField]
-        private List<PopupPanelBase> _popupPanelsList;
+        private List<PopupPanelBase> _popupPanelsList = null;
+
         private ListUnserializerTypeObject<PopupPanelBase> _popupPanels;
 
         #endregion

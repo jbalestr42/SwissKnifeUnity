@@ -9,7 +9,7 @@ namespace SKU {
         public string Description;
 
         [SerializeField]
-        private T _localization;
+        private T _localization = default(T);
 
         public T Get()
         {

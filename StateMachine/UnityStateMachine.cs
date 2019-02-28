@@ -8,7 +8,7 @@ namespace SKU.StateMachine
     public class UnityStateMachine : MonoBehaviour
     {
         [SerializeField]
-        private String _firstState;
+        private String _firstState = String.Empty;
 
         protected UnityState _currentState;
 

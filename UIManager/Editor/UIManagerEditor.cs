@@ -80,7 +80,6 @@ namespace SKU
 
             for (int i = 0; i < uiManager.Canvas.Count; ++i)
             {
-                bool isPresent = false;
                 string currentCanvas = uiManager.Canvas[i];
 
                 if (string.IsNullOrEmpty(currentCanvas))
