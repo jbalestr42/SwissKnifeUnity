@@ -12,7 +12,7 @@ namespace SKU
         public abstract void Init();
     }
 
-    public class GameManager : Singleton<GameManager>
+    public partial class GameManager : Singleton<GameManager>
     {
 
         public List<AManagers> ManagersList;
