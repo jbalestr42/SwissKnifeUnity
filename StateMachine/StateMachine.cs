@@ -9,6 +9,7 @@ namespace SKU.StateMachine
         public void Initialize<T>() where T: State, new()
         {
             _currentState = new T();
+            _currentState.StateMachine = this;
             _currentState.OnEnter();
         }
 

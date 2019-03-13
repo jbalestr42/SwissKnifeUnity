@@ -5,7 +5,10 @@ using System;
 namespace SKU.StateMachine {
     public abstract class State
     {
+        protected StateMachine _stateMachine;
         protected List<Type> _possibleTransition = new List<Type>();
+
+        public StateMachine StateMachine { set { _stateMachine = value; } }
 
         public State()
         {
