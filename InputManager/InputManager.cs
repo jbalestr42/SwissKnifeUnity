@@ -5,7 +5,7 @@ using UnityEngine;
 namespace SKU
 {
 
-    enum ClickType
+    public enum ClickType
     {
         None = -1,
         Left = 0,
@@ -22,20 +22,12 @@ namespace SKU
             public bool HasBeenMaintained = false;
         }
 
-        public float _deathZoneForClickDetection = 0.1f;
-        public float _thresholdForMaintainedClick = 0.5f;
-
         public Action SimpleLeftClick;
         public Action SimpleRightClick;
-        public Action MaintainedLeftClick;
-        public Action MaintainedRightClick;
 
         private InputHandler _inputHandler = null;
-        private float _clickDuration = 0f;
-        private bool _maintainedTriggered = false;
 
-        private ClickType _lastClick = ClickType.None;
-        private Dictionary<ClickType, ClickStatus> _inputs = new Dictionary<ClickType, ClickStatus>();
+        private Dictionary<ClickType, Action> _inputsMap = new Dictionary<ClickType, Action>();
 
         public static InputManager Instance
         {
@@ -50,8 +42,8 @@ namespace SKU
                 _inputHandler.SetInputManager(this, Update);
             }
 
-            _inputs.Add(ClickType.Left, new ClickStatus());
-            _inputs.Add(ClickType.Right, new ClickStatus());
+            _inputsMap.Add(ClickType.Left, SimpleLeftClick);
+            _inputsMap.Add(ClickType.Right, SimpleRightClick);
         }
 
         private void Update() {
@@ -61,44 +53,22 @@ namespace SKU
 
         private void ClicLogic(ClickType clickType)
         {
-            ClickStatus clicStatus = _inputs[clickType];
             int clicIndex = (int)clickType;
-
-            if (!Input.GetMouseButton(clicIndex) && !Input.GetMouseButtonUp(clicIndex))
-            {
-                clicStatus.TimeMaintained = 0f;
-                clicStatus.HasBeenMaintained = false;
-                _inputs[clickType] = clicStatus;
-
-                return;
-            }
-
-            if (Input.GetMouseButton(clicIndex) && !Input.GetMouseButtonDown(clicIndex))
-            {
-                clicStatus.TimeMaintained += Time.deltaTime;
-            }
-
-            if (clicStatus.TimeMaintained >= _thresholdForMaintainedClick && !clicStatus.HasBeenMaintained)
-            {
-                clicStatus.HasBeenMaintained = true;
-                _inputs[clickType] = clicStatus;
-
-                return;
-            }
-
-            if (clicStatus.TimeMaintained >= _deathZoneForClickDetection && clicStatus.HasBeenMaintained)
-            {
-                _inputs[clickType] = clicStatus;
-                return;
-            }
 
             if (Input.GetMouseButtonUp(clicIndex))
             {
-                clicStatus.HasBeenMaintained = false;
-                SimpleLeftClick.Invoke();
+                _inputsMap[clickType]?.Invoke();
             }
+        }
 
-            _inputs[clickType] = clicStatus;
+        public void AddListener(ClickType clickType, Action action)
+        {
+            _inputsMap[clickType] += action;
+        }
+
+        public void RemoveListener(ClickType clickType, Action action)
+        {
+            _inputsMap[clickType] -= action;
         }
     }
 }
