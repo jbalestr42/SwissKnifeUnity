@@ -5,7 +5,11 @@ using UnityEngine;
 namespace SKU
 {
 
+<<<<<<< HEAD
+    public enum ClickType
+=======
     enum ClickType
+>>>>>>> 63e3851897397eb6d15945cf0cf285b0ad50a48b
     {
         None = -1,
         Left = 0,
@@ -22,6 +26,14 @@ namespace SKU
             public bool HasBeenMaintained = false;
         }
 
+<<<<<<< HEAD
+        public Action SimpleLeftClick;
+        public Action SimpleRightClick;
+
+        private InputHandler _inputHandler = null;
+
+        private Dictionary<ClickType, Action> _inputsMap = new Dictionary<ClickType, Action>();
+=======
         public float _deathZoneForClickDetection = 0.1f;
         public float _thresholdForMaintainedClick = 0.5f;
 
@@ -36,6 +48,7 @@ namespace SKU
 
         private ClickType _lastClick = ClickType.None;
         private Dictionary<ClickType, ClickStatus> _inputs = new Dictionary<ClickType, ClickStatus>();
+>>>>>>> 63e3851897397eb6d15945cf0cf285b0ad50a48b
 
         public static InputManager Instance
         {
@@ -50,8 +63,13 @@ namespace SKU
                 _inputHandler.SetInputManager(this, Update);
             }
 
+<<<<<<< HEAD
+            _inputsMap.Add(ClickType.Left, SimpleLeftClick);
+            _inputsMap.Add(ClickType.Right, SimpleRightClick);
+=======
             _inputs.Add(ClickType.Left, new ClickStatus());
             _inputs.Add(ClickType.Right, new ClickStatus());
+>>>>>>> 63e3851897397eb6d15945cf0cf285b0ad50a48b
         }
 
         private void Update() {
@@ -61,6 +79,24 @@ namespace SKU
 
         private void ClicLogic(ClickType clickType)
         {
+<<<<<<< HEAD
+            int clicIndex = (int)clickType;
+
+            if (Input.GetMouseButtonUp(clicIndex))
+            {
+                _inputsMap[clickType]?.Invoke();
+            }
+        }
+
+        public void AddListener(ClickType clickType, Action action)
+        {
+            _inputsMap[clickType] += action;
+        }
+
+        public void RemoveListener(ClickType clickType, Action action)
+        {
+            _inputsMap[clickType] -= action;
+=======
             ClickStatus clicStatus = _inputs[clickType];
             int clicIndex = (int)clickType;
 
@@ -99,6 +135,7 @@ namespace SKU
             }
 
             _inputs[clickType] = clicStatus;
+>>>>>>> 63e3851897397eb6d15945cf0cf285b0ad50a48b
         }
     }
 }

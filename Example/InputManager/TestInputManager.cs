@@ -7,8 +7,14 @@ public class TestInputManager : MonoBehaviour
 {
     private void Start()
     {
-        InputManager.Instance.SimpleLeftClick += LeftClick;
-        InputManager.Instance.SimpleRightClick += RightClick;
+        InputManager.Instance.AddListener(ClickType.Left, LeftClick);
+        InputManager.Instance.AddListener(ClickType.Right, RightClick);
+    }
+
+    private void OnDisable()
+    {
+        InputManager.Instance.RemoveListener(ClickType.Left, LeftClick);
+        InputManager.Instance.RemoveListener(ClickType.Left, LeftClick);
     }
 
     private void LeftClick()
