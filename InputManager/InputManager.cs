@@ -41,14 +41,6 @@ namespace SKU
                 _inputHandler = GameManager.Instance.gameObject.AddComponent<InputHandler>();
                 _inputHandler.SetInputManager(this, Update);
             }
-
-<<<<<<< HEAD
-            _inputsMap.Add(ClickType.Left, SimpleLeftClick);
-            _inputsMap.Add(ClickType.Right, SimpleRightClick);
-=======
-            _inputs.Add(ClickType.Left, new ClickStatus());
-            _inputs.Add(ClickType.Right, new ClickStatus());
->>>>>>> 63e3851897397eb6d15945cf0cf285b0ad50a48b
         }
 
         private void Update() {
