@@ -36,7 +36,7 @@ namespace SKU
 
             _choiceIndex = EditorGUILayout.Popup(_choiceIndex, _choices);
 
-            managerParts.CanvasToInstantiate = _choices[_choiceIndex];
+            //managerParts.CanvasToInstantiate = _choices[_choiceIndex];
             EditorUtility.SetDirty(target);
         }
     }

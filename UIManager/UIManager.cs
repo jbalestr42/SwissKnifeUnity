@@ -98,7 +98,7 @@ namespace SKU {
 
                 if (GameObject.FindGameObjectWithTag(_canvas[i]) == null)
                 {
-                    GameObject newCanvas = Instantiate(_canvasArchetype, null).gameObject;
+                    GameObject newCanvas = Instantiate(_canvasArchetype, GameManager.Instance.gameObject.transform).gameObject;
                     newCanvas.tag = _canvas[i];
                     newCanvas.transform.SetAsLastSibling();
                 }
@@ -111,7 +111,7 @@ namespace SKU {
                     Log.Error("No Event System in the scene and no event system set as archetype inside the UIManager");
                 } else
                 {
-                    Instantiate(_eventSystemArchetype, null).transform.SetAsLastSibling();
+                    Instantiate(_eventSystemArchetype, GameManager.Instance.gameObject.transform).transform.SetAsLastSibling();
                 }
             }
 
@@ -126,6 +126,7 @@ namespace SKU {
                 }
 
                 if (!_uiManagers.ContainsKey(_UIManagerParts[i].GetType())) {
+                    Log.Error(_UIManagerParts[i].CanvasToInstantiate, _UIManagerParts[i].gameObject);
                     AUIManagerParts newPart = Instantiate(_UIManagerParts[i], GetCanvas(_UIManagerParts[i].CanvasToInstantiate));
                     newPart.Init();
                     _uiManagers.Add(_UIManagerParts[i].GetType(), newPart);
