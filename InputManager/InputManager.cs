@@ -6,7 +6,6 @@ namespace SKU
 {
 
     public enum ClickType
-    enum ClickType
     {
         None = -1,
         Left = 0,
